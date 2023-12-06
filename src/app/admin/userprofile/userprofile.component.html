@@ -1,0 +1,498 @@
+<!-- <mat-progress-bar mode="determinate" value="40"></mat-progress-bar> -->
+<div style="display: flex; width: 100%; justify-content: space-between;">
+  <div style="display: flex; width: 100%; justify-content: space-between;">
+      <div (click)="go.click()" style="display: flex; justify-content: space-between; align-items: center;
+   padding: 10px; background-color: #f0f0f0;background-repeat: no-repeat;
+   height: 200px; width: 100%; background-image: url({{url1?url1:this.auth.Company_banner}});
+   background-size: cover; background-position: center center; color: #ffffff; position: relative;">
+        <input id="Company_banner" type='file' style="display: none;"  accept="image/x-png,image/jpeg"
+          (change)="handleFileUpload('Company_banner', 'Company_banner'); onSelectFile($event, false)" [disabled]="imgfalg" #go>
+
+        <div class="text-center mb-5" style="margin-top: 40px;" (click)="stopPropagation($event)" >
+          <label for="Company_logo" class="hoverable">
+            <img [src]="url?url:this.auth.Company_logo" alt="Company Logo">
+            <div class="hover-text">Upload Company Logo</div>
+            <div class="background"></div>
+          </label>
+          <input id="Company_logo" type='file' style="display: none;" [disabled]="imgfalg"
+            (change)="handleFileUpload('Company_logo', 'Company_logo'); onSelectFile($event, true)">
+        </div>
+
+        <div class="card" style="opacity: 0.8;  justify-content: end;">
+          <div class="card-body">
+            <div style="display: flex; flex-direction: column; align-items: flex-end;">
+              <div style="font-size: 24px; font-weight: bold;">{{auth.CompanyName}}</div>
+              <div style="font-size: 16px; color: black;">
+                {{auth.street}} {{auth.area}} {{auth.statename}} {{auth.pincode}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <span (click)="toggleEditModeIcon()" (click)="stopPropagation($event);"
+        style="display: flex; justify-content: end; align-items:end; position: absolute; bottom: 0;margin-left: 97%; " class=" btn-secondary">
+        <mat-icon >{{ imgfalg ? 'edit': 'save'  }}</mat-icon>
+
+    </span>
+      </div>
+    </div>
+
+
+    <div *ngIf="!toast" aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 d-flex"
+      style="z-index: 9999; height: 100px; width: 350px; margin-left: 8%;">
+      <div class="toast-container top-0 end-0 p-3">
+
+        <!-- Then put toasts within -->
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <strong class="me-auto">Profile is Not Fully Completed</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            Yet Your <strong>{{this.auth.Name}}</strong> Profile is Not Fully Completed
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div style="margin-top: 10px;">
+    <mat-icon (click)="goBack()">keyboard_backspace</mat-icon>
+  </div>
+
+
+  <mat-stepper>
+
+    <mat-step [stepControl]="basicinfo">
+      <ng-template matStepLabel>Basic Info</ng-template>
+      <form [formGroup]="basicinfo">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control"
+              formControlName="Name" placeholder="Enter your name">
+              <label for="name">Name</label>
+              <div *ngIf="basicinfo.controls.Name.hasError('required') && basicinfo.controls.Name.touched">
+                <span style="color: red;">Name is required</span>
+              </div>
+              <div *ngIf="basicinfo.controls.Name.hasError('noSpaces') && basicinfo.controls.Name.touched">
+                <span style="color: red;">Name should not contain spaces</span>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="text"  class="form-control"
+
+          formControlName="CompanyName" placeholder="Enter your company name">
+          <label for="company">Company Name</label>
+          <div *ngIf="basicinfo.controls.CompanyName.hasError('required') && basicinfo.controls.CompanyName.touched">
+            <span style="color: red;">CompanyName is required</span>
+          </div>
+          <div *ngIf="basicinfo.controls.CompanyName.hasError('noSpaces') && basicinfo.controls.CompanyName.touched">
+            <span style="color: red;">CompanyName should not contain spaces</span>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control"
+           formControlName="phone" placeholder="Enter your mobile number">
+          <label for="mobile">Mobile Number</label>
+          <div *ngIf="basicinfo.controls.phone.invalid && basicinfo.controls.phone.touched">
+            <span style="color: red;">Invalid phone number</span>
+          </div>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" formControlName="email" placeholder="Enter your email">
+            <label for="email">Email ID</label>
+            <div *ngIf="basicinfo.controls.email.invalid && basicinfo.controls.email.touched">
+              <span style="color: red;">Invalid email address</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+      <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="number" class="form-control"
+         formControlName="emp_count" placeholder="Enter your Employee Count">
+        <label for="emp_count">Employee Count</label>
+        <div *ngIf="basicinfo.controls.emp_count.invalid && basicinfo.controls.emp_count.touched">
+          <span style="color: red;">Employee Count is required.</span>
+        </div>
+
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="Website" class="form-control" formControlName="Website" placeholder="Enter your email">
+          <label for="Website">Website</label>
+          <div *ngIf="basicinfo.controls.Website.hasError('required') && basicinfo.controls.Website.touched">
+            <span style="color: red;">Website is required</span>
+          </div>
+          <div *ngIf="basicinfo.controls.Website.hasError('noSpaces') && basicinfo.controls.Website.touched">
+            <span style="color: red;">Website should not contain spaces</span>
+          </div>
+
+        </div>
+      </div>
+
+      </div>
+      <div class="row">
+      <div class="col-md-6">
+        <div class="form-floating mb-3 d-flex">
+          <input type="text" class="form-control" formControlName="Address" id="Address">
+          <label for="Address">Address:</label>
+          <div *ngIf="basicinfo.controls.Address.invalid && basicinfo.controls.Address.touched">
+            <span style="color: red;">Address is required.</span>
+          </div>
+          <div *ngIf="basicinfo.controls.Address.hasError('noSpaces') && basicinfo.controls.Address.touched">
+            <span style="color: red;">Address should not contain spaces</span>
+          </div>
+          <div class="d-flex ">
+            <button class="btn btn-outline-dark" (click)="showMap()">
+              <i class="fas fa-map-marker-alt marker-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div *ngIf="showMapDiv">
+        <div class="col-md-12">
+          <div class="map-container">
+            <location [Address]="auth.area + ', ' + auth.districtname + ', ' + auth.statename + ', ' + auth.pincode" [Latlog]="mapdata" [Flag]="true"[Draggable]="true" (onClick)="click($event)"></location>
+            <button (click)="hideMap()" class="btn btn-danger">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+      <span>Company Description</span>
+      <angular-editor
+
+      formControlName="company_description"
+          [config]="editorConfig"
+          *ngIf="editMode"
+          ></angular-editor>
+      </div>
+      </form>
+
+      <button mat-button (click)="toggleEditMode()">{{ editMode ? 'Cancel' : 'Edit' }}</button>
+
+      <!-- Button for Save -->
+      <button mat-button *ngIf="editMode" [disabled]="this.basicinfo.invalid" (click)="saveValues()">Save</button>
+      <button mat-button matStepperNext>Next</button>
+      <!-- <button mat-button (click)="submitForm()">
+        Submit
+      </button> -->
+      </mat-step>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Company Details</ng-template>
+      <form [formGroup]="firstFormGroup">
+        <div class="row">
+          <div class="col-md-6">
+
+            <p>Company Register Type</p>
+            <select class="form-select col-md-6" formControlName="Company_Register_Type"
+              aria-label="Default select example">
+              <option value="" disabled selected>Company Register Type</option>
+              <option value="Private_Limited_Company"> Private Limited Company</option>
+              <option value="Public_Limited_Company"> Public Limited Company</option>
+              <option value="Partnerships_Company_Limited"> Partnerships Company Limited</option>
+              <option value="Liability_Partnership_One_Person_Company_Sole_Proprietorship"> Liability Partnership One
+                Person Company Sole Proprietorship</option>
+            </select>
+            <span style="color: red;" *ngIf="firstFormGroup.get('Company_Register_Type')?.hasError('required') && firstFormGroup.get('Company_Register_Type')?.touched"
+            class="error-message">This field is mandatory</span>
+          </div>
+          <div class="col-md-6">
+
+            <p>Company Type</p>
+            <select class="form-select col-md-6" formControlName="company_type" aria-label="Default select example">
+              <option value="" disabled selected>Select Company Type</option>
+              <option value="Services_Based">Services Based</option>
+              <option value="Product_Based">Product Based</option>
+              <option value="Services_Based_Product_Based">Services Based & Product Based </option>
+            </select>
+            <span style="color: red;" *ngIf="firstFormGroup.get('company_type')?.hasError('required') && firstFormGroup.get('company_type')?.touched"
+            class="error-message">This field is mandatory</span>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px;">
+          <div class="col-md-6">
+            <p>Industry Type</p>
+            <select class="form-select" formControlName="industry" aria-label="Default select example">
+              <option value="" disabled selected>Select Industry Type</option>
+              <option value="{{val.category}}" *ngFor="let val of data">{{val.category}}</option>
+            </select>
+            <span *ngIf="firstFormGroup.get('industry')?.hasError('required') && firstFormGroup.get('industry')?.touched"
+            class="error-message">This field is mandatory</span>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <p style="margin-top: 35px;"> </p>
+              <input type="month" formControlName="estd_date" id="establishedDate" class="form-control"
+                placeholder="Established Date">
+              <label for="establishedDate">Established Date</label>
+              <span *ngIf="firstFormGroup.get('estd_date')?.hasError('required')" style="color: red;">
+                This field is mandatory
+              </span>
+              <span *ngIf="firstFormGroup.get('estd_date')?.hasError('futureDate')"style="color: red;">
+                Please select a past or current date
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <input matInput formControlName="pan_no" class="form-control" id="panNo" placeholder="PAN No">
+              <label for="panNo">PAN No</label>
+              <small style="color: red;" *ngIf="functions1.pan_no.errors?.['pattern'] && functions1.pan_no.touched" class="error-message">
+                PAN NO Pattern Miss Match
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <div class="form-floating mb-3">
+              <input matInput formControlName="aadhaar_no" class="form-control" id="aadhaar_no" placeholder="UAM No">
+              <label for="aadhaar_no">AADHAAR No</label>
+              <small style="color: red;" *ngIf="functions1.aadhaar_no.errors?.['pattern'] && functions1.aadhaar_no.touched" class="error-message">
+                AADHAAR Pattern Miss Match
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- <button mat-button (click)="toggleEditMode(editMode)">{{ editMode ? 'Save' : 'Edit' }}</button> -->
+        <button mat-button (click)="toggleEditMode1()">{{ editMode1 ? 'Cancel' : 'Edit' }}</button>
+
+        <!-- Button for Save -->
+        <button mat-button *ngIf="editMode1" [disabled]="firstFormGroup.invalid" (click)="saveValues1()">Save</button>
+        <button mat-button matStepperPrevious>Back</button>
+
+        <button mat-button matStepperNext>Next</button>
+        <!-- <button mat-button (click)="submitForm()">
+          Save
+        </button> -->
+      </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="secondFormGroup">
+      <ng-template matStepLabel>Registraition Details</ng-template>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-radio-group id="GST" [disabled]="!editMode2" [(ngModel)]="GSTradio">
+              <p>Do you Have GST?</p>
+              <mat-radio-button (click)="my(true,'GSt')" [value]="true">Yes</mat-radio-button>
+              <mat-radio-button (click)="my(false,'GSt')" [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-md-6">
+            <mat-radio-group  [disabled]="!editMode2" [(ngModel)]="exportradio">
+              <p>Are You Doing Import Export In Your Bussines</p>
+              <mat-radio-button (click)="my(true,'export')" [value]="true">Yes</mat-radio-button>
+              <mat-radio-button (click)="my(false,'export')" [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+          <div class="row" style="margin-top: 20px;">
+          <div class="col-md-6">
+            <mat-radio-group  [disabled]="!editMode2" [(ngModel)]="registered_in_Goverment">
+              <p>Are you Registered in Goverment ?</p>
+              <mat-radio-button (click)="my(true,'Cin')" [value]="true">Yes</mat-radio-button>
+              <mat-radio-button (click)="my(false,'Cin')" [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-md-6">
+        <mat-radio-group id="imp_expt_present"  [disabled]="!editMode2" [(ngModel)]="imp_expt_present" >
+          <p>Do You do PF For Employee</p>
+          <mat-radio-button (click)="my(true,'pf')" [value]="true">Yes</mat-radio-button>
+          <mat-radio-button (click)="my(false,'pf')" [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+        </div>
+          <form [formGroup]="secondFormGroup">
+            <div class="row">
+              <div class="col-md-6">
+
+                <mat-radio-group formControlName="is_branch_available" id="is_branch_available">
+                  <p>IS Branch Available</p>
+                  <mat-radio-button [value]="'true'" (click)="my(true,'branch')">Yes</mat-radio-button>
+                  <mat-radio-button [value]="'false'" (click)="my(false,'branch')">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3" *ngIf="branch">
+                  <input matInput formControlName="branch" class="form-control" id="Pf_NO" placeholder="Enter Other Location">
+                  <label for="Branch">Branch</label>
+                </div>
+              </div>
+            </div>
+
+        <div class="row" *ngIf="GSt||export">
+          <div class="col-md-6">
+            <div class="form-floating mb-3" *ngIf="GSt">
+              <input matInput formControlName="gst_no" class="form-control" id="gstNo" placeholder="GST No">
+              <label for="gstNo">GST No</label>
+              <small *ngIf="functions2.gst_no.errors?.['pattern'] && functions2.gst_no.touched  "> GST NO Pattern Miss
+                Match </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3" *ngIf="export">
+              <input matInput formControlName="iec_no" class="form-control" id="iecNo" placeholder="IEC No">
+              <label for="iecNo">IEC No</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px;">
+          <div class="col-md-6">
+            <div class="form-floating mb-3" *ngIf="Cin">
+              <input type="text" formControlName="Corporate_Identity_Number" id="Corporate_Identity_Number"
+                class="form-control" placeholder="Corporate Identity Number">
+              <label for="Corporate_Identity_Number">Corporate Identity Number</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-radio-group formControlName="do_you_need_help_pf" id="imp_expt_present" *ngIf="Help1">
+              <p>Do You do Need Help In PF For Employee</p>
+              <mat-radio-button (click)="my(true,'pf')" [value]="true">Yes</mat-radio-button>
+              <mat-radio-button (click)="my(false,'pf')" [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+            <div class="form-floating mb-3" *ngIf="Help">
+              <input matInput formControlName="pf_no" class="form-control" id="Pf_NO" placeholder="Enter Provident Fund">
+              <label for="Pf_NO">Provident Fund</label>
+            </div>
+          </div>
+        </div>
+
+
+        <div>
+          <!-- <button mat-button (click)="toggleEditMode(editMode)">{{ editMode ? 'Save' : 'Edit' }}</button> -->
+          <button mat-button (click)="toggleEditMode2()">{{ editMode2 ? 'Cancel' : 'Edit' }}</button>
+
+      <!-- Button for Save -->
+      <button mat-button *ngIf="editMode2" [disabled]="secondFormGroup.invalid" (click)="saveValues2()">Save</button>
+          <button mat-button matStepperPrevious>Back</button>
+
+          <button mat-button matStepperNext>Next</button>
+          <!-- <button mat-button (click)="submitForm()">
+            Save
+          </button> -->
+        </div>
+      </form>
+    </mat-step>
+    <mat-step style="width: 100%;">
+      <ng-template matStepLabel>Product/Services</ng-template>
+
+      <div class="form-group mb-4">
+        Business
+        <div class="row">
+          <div class="col-lg-4 col-md-4">
+            <div class="checkbox mt-2">
+              <input type="checkbox" id="Exporters" [disabled]="editMode3" value="Exporters" (change)="my2('exporters')" [(ngModel)]="business.exporters" >
+              <label for="Exporters">Trading/Wholesale/Distributor/Retail</label>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4">
+            <div class="checkbox mt-2">
+              <input type="checkbox" id="Manufacturers " [disabled]="editMode3" value="Manufacturers "(change)="my2('manufacturers')"[(ngModel)]="business.manufacturers">
+              <label for="Manufacturers ">Own Manufacturers </label>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="checkbox mt-2">
+              <input type="checkbox" id="Service " [disabled]="editMode3" value="Service " (change)="my2('services')" [(ngModel)]="business.services">
+              <label for="Service "> Service </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="row" style="max-width: 100%;" *ngIf="business.exporters ||business.manufacturers">
+        <div *ngFor="let row of productRows; let i = index" style="display: flex; justify-content: space-between;width: 100%;">
+          <div class="form-floating mb-3 me-3 col-md-11" style="display: flex;justify-content: start;margin-left: 40px;">
+            <mat-form-field>
+              <label for="Product_Name{{i}}"></label>
+              <input matInput type="text" class="form-control" id="Product_Name{{i}}" placeholder="Product Name" [(ngModel)]="row.productName" required>
+
+            </mat-form-field>
+            <br>
+            <label for="description{{i}}"></label>
+            <angular-editor
+                [config]="editorConfig"
+                [(ngModel)]="row.productDescription" placeholder="product description"></angular-editor>
+            <!-- <mat-form-field>
+              <label for="description{{i}}"></label>
+              <input matInput class="form-control" id="description{{i}}" placeholder="description" [(ngModel)]="row.productDescription" required>
+
+            </mat-form-field> -->
+
+            <div class="image-box" style="display:flexbox;justify-content: center;margin-left: 40px;overflow: auto;"
+            [style.backgroundImage]="'url(' + (row.productImage ? row.productImage : row.productImage ) + ')'" (click)="file.click()">
+              <input type="file" style="display: none;" (change)="handleFileUpload1($event, i); onSelectFile1($event, i)" #file>
+            </div>
+
+            <span style="display: flex;  justify-content: end;font-size: 24px; color: #ff0000; margin-left: 40px;" (click)="deleteProductRow(i)"><mat-icon>delete</mat-icon></span>
+          </div>
+        </div>
+
+        <!-- [(ngModel)]="row.productDescription" -->
+      </div>
+
+      <button mat-raised-button color="warn" *ngIf="business.exporters ||business.manufacturers" (click)="addProductRow()"><mat-icon>add</mat-icon>Add</button>
+      <div *ngIf="business?.services">
+        <div *ngFor="let serviceRow of serviceRows; let i = index" style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <div class="form-floating mb-3 me-3" style="display:flex; align-items: center;">
+            <mat-form-field style="width: 300px;">
+              <label for="service_Name{{i}}"></label>
+
+              <input matInput type="text"  class="form-control" id="service_Name{{i}}" placeholder="Service Name" [(ngModel)]="serviceRow.serviceName" required>
+            </mat-form-field>
+          </div>
+          <label for="service_description{{i}}"></label>
+          <angular-editor
+
+              [config]="editorConfig"
+              [(ngModel)]="serviceRow.serviceDescription" placeholder="service description"></angular-editor>
+          <div style="display: flex; align-items: center;">
+            <span style="font-size: 24px; color: #ff0000; margin-right: 10px;" (click)="deleteServiceRow(i)">
+              <mat-icon>delete</mat-icon>
+            </span>
+          </div>
+        </div>
+      </div>
+      <button mat-raised-button *ngIf="business.services" color="warn" (click)="addServiceRow()">Add Service</button>
+
+
+      <div>
+        <button mat-button (click)="toggleEditMode3()">{{ !editMode3 ? 'Cancel' : 'Edit' }}</button>
+
+        <!-- Button for Save -->
+        <button mat-button *ngIf="!editMode3" (click)="saveValues3()">Save</button>
+        <button mat-button matStepperPrevious>Back</button>
+
+        <!-- <button mat-button (click)="submitForm()">
+          Submit
+        </button> -->
+      </div>
+
+    </mat-step>
+  </mat-stepper>

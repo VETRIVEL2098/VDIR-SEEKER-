@@ -1,0 +1,19 @@
+.candidate-info {
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .candidate-info h2 {
+    color: #007bff;
+  }
+  
+  .candidate-info p {
+    margin: 8px 0;
+  }
+  
+  .candidate-info ul {
+    list-style: disc;
+    padding-left: 20px;
+  }
+  

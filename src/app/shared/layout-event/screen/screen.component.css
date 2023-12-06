@@ -1,0 +1,51 @@
+.loc {
+    position: absolute;
+    top: 116px;
+    right: 20px;
+    width: 20%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.loc {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* small screens */
+  @media only screen and (max-width: 600px) {
+    .loc {
+      flex-direction: column;
+    }
+
+    .loc > div {
+      width: 100%;
+      margin-left: 0; 
+    }
+
+    .loc > div:last-child {
+      margin-bottom: 10px; 
+    }
+  }
+
+  /*medium screens */
+  @media only screen and (min-width: 601px) and (max-width: 900px) {
+    .loc > div {
+      width: 48%;
+    }
+  }
+
+  /*large screens */
+  @media only screen and (min-width: 901px) {
+    .loc > div {
+      width: 30%;
+    }
+  }
+  i {
+    margin-right: 5px;
+  }
+  .footers{margin-top: 115px;}

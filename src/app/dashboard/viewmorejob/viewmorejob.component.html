@@ -1,0 +1,78 @@
+<!-- Tod -->
+<!-- Company Logo
+Company Banner -->
+
+<div class="row vh-80">
+  <div class="col-md-12">
+    <div class="card border-light mb-3">
+      <div class="card-body">
+        <ul class="card-list">
+          <div style="margin-top: 20px;">
+
+            <span (click)="routeback(true)"><mat-icon style="height: 20px">arrow_back</mat-icon></span>
+
+            <span (click)="routeback(false,job?.refid)" style="float: right;"><mat-icon>pageview</mat-icon>
+            </span>
+          </div>
+
+
+
+          <div class="d-flex align-items-center mb-3 justify-content-center">
+            <!-- <img id="ani3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaogV9s6SIu9MDy_nXP5cwNNwk_y6vPrfNGA&usqp=CAU" alt="Logo" width="50" height="50" class="d-inline-block img-fluid"> -->
+            <h1 class="card-subtitle text-center fs-2 mb-5 mt-5 text-break">{{ job?.companyName }}</h1>
+          </div>
+          <!-- <i class="fas fa-star mb-3"></i> Rating: {{ job.rating }} -->
+          <!-- <li class="card-title">Title: {{ job.title }}<li> -->
+
+          <h2 class="card-title">Job Title : {{ job?.title }}</h2>
+
+          <!-- <h4 class="card-text" [innerHTML]=" job.Description "></h4> -->
+
+          <ul class="list-unstyled" *ngIf="job?.role!=''">
+            <li class="card-title">Role: {{ job?.role }}</li>
+
+            <li class="mt-3" *ngIf="job?.salary!=''">
+              <i class="fas fa-money-bill"></i> Salary: {{ job?.salary }}
+            </li>
+            <li class="mt-3" *ngIf="job?.Location!=''">
+              <i class="fas fa-map-marker-alt"></i> Location: {{ job?.Location }}
+            </li>
+          </ul>
+          <li class="mb-3" *ngIf="job?.Description!=''" ><strong>Description:</strong>
+          <p [innerHTML]="job?.Description"></p>
+          </li>
+          <li class="mb-3" *ngIf="job?.Requirements!=''"><strong>Requirements:</strong>
+
+            <p [innerHTML]="job?.Requirements"></p>
+
+          </li>
+          <li class="mb-3" *ngIf="job?.Education!=''"><strong>Education:</strong>
+            <ul >
+              <li *ngFor="let skill of job?.Education">{{ skill?.education }}</li>
+            </ul>
+          </li>
+          <!-- <li class="mb-3"><strong>Department:</strong> {{ job.department }}</li> -->
+          <li class="mb-3"><strong>Employment Type:</strong> {{ job?.employmentType }}</li>
+          <li class="mb-3" *ngIf="job?.Skill!=''">
+            <strong>Key Skills:</strong>
+            <p [innerHTML]="job?.Skill"></p>
+          </li>
+          <li class="mb-3" *ngIf="job?.industryType!=''"><strong>Industry Type:</strong> {{ job?.industryType }}</li>
+        </ul>
+        <div style="margin: 10px;" >
+          <!-- <div>
+            Would you like to Write a Message to the Company Manager About Your Self  -->
+          <!-- <input type="checkbox" [(ngModel)]="Checkvalue"/> can write the msg -->
+          <!-- </div> -->
+
+          <button class="fnt btn btn-danger mx-auto m-5" style="background-color:var(--main-color); margin: 10px;" *ngIf="isLoggedIn && button" id="buttom" (click)="applyJob();">Apply now</button>
+
+          <button class="fnt btn btn-danger" style="background-color:var(--main-color);  margin: 10px;"  *ngIf="!isLoggedIn" (click)="login(false)">Login</button>
+
+          <button class="fnt btn btn-danger" style="background-color:var(--main-color);   margin-left: 10px;" *ngIf="!isLoggedIn" (click)="login(true)">Register</button>
+
+        </div>
+        </div>
+    </div>
+  </div>
+</div>

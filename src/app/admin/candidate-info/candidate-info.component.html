@@ -1,0 +1,126 @@
+<div *ngIf="overall_data.length > 0" class="container ">
+  <!-- d-flex justify-content-center -->
+  <span (click)="routeback()"><mat-icon>arrow_back</mat-icon></span>
+
+ <div style="margin-left: 30px;margin-top: 30px;">
+  <div style="height: 100px;" style="display: flex;justify-content: space-between;">
+    <img [src]="overall_data[0]?.candidateInfo?.profile_pic " alt="" height="100px" width="100px" style="float: left;">
+    <div style="display: flex;align-items: center;">
+      <div style="display: flex;justify-content: space-between;">
+        <button class="btn btn-dark" id="Selected" style="margin: 5px;" [disabled]="this.parms.applied_type=='Selected'" (click)="UpdateCanditeInfo('Selected')">
+          Selected
+           </button>
+           <button class="btn btn-dark" id="Hold" style="margin: 5px;" [disabled]="this.parms.applied_type=='Hold'" (click)="UpdateCanditeInfo('Hold')">
+            Hold
+           </button>
+           <button class="btn btn-dark" id="REJECTED" style="margin: 5px;" [disabled]="this.parms.applied_type=='REJECTED'" (click)="UpdateCanditeInfo('REJECTED')">
+            REJECTED
+          </button>
+      </div>
+
+    </div>
+  </div>
+<div>
+
+  <h4><strong> Job Title : </strong> {{ parms.title }}</h4>
+  <h4><strong>Job Role : </strong> {{ parms.role }}</h4>
+  <h4> <strong>Full Name :</strong>  {{ overall_data[0]?.candidateInfo?.firstName+ overall_data[0]?.candidateInfo?.lastName }}</h4>
+  <p><strong>Email:</strong> {{ overall_data[0]?.candidateInfo?.email }}</p>
+  <p><strong>Phone Number:</strong> {{ overall_data[0]?.candidateInfo?.phone }}</p>
+  <p><strong>Date of Birth:</strong> {{ overall_data[0]?.candidateInfo?.dateofbirth }}</p>
+<p *ngIf="resumeHere"><strong>Resume:</strong><a href={{overall_data[0]?.candidateInfo?.resume}}>Download Resume</a></p>
+  <p><strong>Address:</strong> {{ overall_data[0]?.resumeData?.address }}</p>
+
+  <p><strong>Education</strong></p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Degree</th>
+        <th>University</th>
+        <th>GPA</th>
+        <th>Graduation Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let education of overall_data[0]?.resumeData?.educationdetails">
+        <td>{{ education.degree }}</td>
+        <td>{{ education.university }}</td>
+        <td>{{ education.gpa }}</td>
+        <td>{{ education.graduationdate }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<p *ngIf="overall_data[0]?.resumeData?.certificates?.length"><strong>Certificates:</strong></p>
+
+<table class="table table-bordered" *ngIf="overall_data[0]?.resumeData?.certificates?.length">
+  <thead>
+    <tr>
+      <th>Certificate</th>
+      <th>Authority</th>
+      <th>Date Earned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let certificate of overall_data[0]?.resumeData?.certificates">
+      <td>{{ certificate.certificate }}</td>
+      <td>{{ certificate.authority }}</td>
+      <td>{{ certificate.dateearned }}</td>
+    </tr>
+  </tbody>
+</table>
+<p *ngIf="!overall_data[0]?.resumeData?.certificates?.length">No certificates available.</p>
+
+
+ <!-- Check if there are certificates available -->
+<p *ngIf="overall_data[0]?.resumeData?.certificates?.length"><strong>Certificates:</strong></p>
+
+<!-- Show the table if there are certificates available -->
+<table class="table table-bordered" *ngIf="overall_data[0]?.resumeData?.certificates?.length">
+  <thead>
+    <tr>
+      <th>Certificate</th>
+      <th>Authority</th>
+      <th>Date Earned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let certificate of overall_data[0]?.resumeData?.certificates">
+      <td>{{ certificate.certificate }}</td>
+      <td>{{ certificate.authority }}</td>
+      <td>{{ certificate.dateearned }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="overall_data[0]?.resumeData?.skills?.length"><strong>Skills:</strong></p>
+
+
+<table class="table table-bordered" *ngIf="overall_data[0]?.resumeData?.skills?.length">
+  <thead>
+    <tr>
+      <th>Skill</th>
+      <th>Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let skill of overall_data[0]?.resumeData?.skills">
+      <td>{{ skill.skill }}</td>
+      <td>{{ skill.level }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!overall_data[0]?.resumeData?.skills?.length">No skills available.</p>
+
+</div>
+
+ </div>
+
+
+</div>
+
+<div *ngIf="overall_data.length === 0">
+  <p>No data found...</p>
+</div>

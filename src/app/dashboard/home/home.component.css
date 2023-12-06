@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap');
+
+
+img
+{
+  height:100%;
+  width:100%;
+}
+/* img:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+} */
+
+/* @keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+} */
+.container-fluid{
+  justify-content: center;
+}
+.header-container{
+  font-family: 'Fredoka', sans-serif;
+}
+/* .header-container .title{
+  margin-top: 40px;
+} */
+.topi div,p,h5{
+  font-family: 'Fredoka', sans-serif;
+
+}
+
+#hh{
+  font-family: 'Fredoka', sans-serif;
+}
+h6,h2,li{
+  font-family: 'Fredoka', sans-serif;
+}
+
+ .topi .card-body {
+  display: block;
+  top: 0px;
+  color:#ffffff;
+  position: relative;
+  max-width: 262px;
+  background-color:var(--main-color);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 32px 24px;
+  margin: 12px;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  border: 1px solid #f2f8f9;
+}
+.topi .card-body:hover {
+  transition: all 0.2s ease-out;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  top: -4px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color:var(--main-color);
+}
+.topi .card-body:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -16px;
+  right: -16px;
+  background:var(--main-color);
+  height: 32px;
+  width: 32px;
+  border-radius: 32px;
+  transform: scale(2);
+  transform-origin: 50% 50%;
+  transition: transform 0.15s ease-out;
+}
+.topi .card-body:hover:before {
+  transform: scale(2.15);
+}
+
+#inp:focus {
+  border-color: rgba(117, 17, 17, 0.8);
+  box-shadow: 0 1px 1px rgba(132, 23, 23, 0.075) inset, 0 0 8px rgba(112, 14, 14, 0.6);
+  outline: 0 none;
+}
+input[type="checkbox"]:focus {
+  border-color: rgba(22, 25, 21, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(117, 17, 17, 0.8);
+  outline: 0 none;
+
+}
+  i{
+    height: 23px;
+    font-size: 20px;
+  }
+
+/* Custom card styles */
+.custom-card {
+  width: 700px;
+  border: none;
+  /* background-color: #f8f9fa; */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+/* Custom card styles */
+.custom-card {
+  width: 900px;
+  border: none;
+  /* background-color: #f8f9fa; */
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+  padding: 15px;
+}
+
+/* Column list styles */
+.column-list {
+  columns: 3; /* Number of columns you want */
+}
+
+/* Custom list styles */
+.custom-list {
+  padding: 0;
+  list-style: none;
+}
+
+/* Data item styles */
+.data-item {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* Bullet styles */
+.bullet {
+  width: 3px;
+  height: 3px;
+  background-color: #000000;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+.view-more-button {
+  margin-top: 10px;
+}
+
+.card:hover{
+  cursor: pointer;
+}
+
+.carousel-indicators {
+  background-color: transparent;
+}
+
+.carousel-indicators .active {
+  background-color: rgba(255, 255, 255, 0.5);
+}

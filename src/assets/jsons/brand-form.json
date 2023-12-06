@@ -1,0 +1,191 @@
+{
+  "pageHeading": "event",
+  "formType": "simple",
+  "addEditMode": "page",
+  "keyField": "model_no",
+  "form": {
+    "collectionName": "product",
+    "getDataEndPoint": "product/filter/model_no",
+    "fields": [
+      {
+        "fieldGroupClassName": "display-flex",
+
+        "fieldGroup": [
+          {
+            "type": "select",
+            "key": "type",
+            "className": "flex-1",
+            "props": {
+              "label": "Type",
+              "options": [
+                {
+                  "label": "Own Tractor",
+                  "value": "Own Tractor"
+                },
+                {
+                  "label": "Competitive Tractor",
+                  "value": "Competitive Tractor"
+                }
+              ],
+              "required": true
+            }
+          },
+          {
+            "type": "input",
+            "key": "Start Date",
+            "className": "flex-1",
+            "props": {
+              "label": "Start date",
+              "labelPropTemplate": "{{model_family}}",
+              "org_id": true,
+              "optionsDataSource": {
+                "collectionName": "productfamily"
+              },
+              "labelProp": "model_family",
+              "valueProp": "model_family"
+            }
+          },
+          {
+            "type": "input",
+            "key": "End Date",
+            "className": "flex-1",
+            "props": {
+              "label": "End  Date",
+              "placeholder": "End Date",
+              "required": true
+            }
+          }
+        ]
+      },
+      {
+        "fieldGroupClassName": "display-flex",
+        "fieldGroup": [
+          {
+            "type": "input",
+            "key": "Time",
+            "className": "flex-1",
+            "props": {
+              "label": "Time",
+              "placeholder": "Time",
+              "required": true
+            }
+          },
+          {
+            "type": "input",
+            "key": "description",
+            "className": "flex-6",
+            "props": {
+              "label": "Description",
+              "placeholder": "Name"
+            }
+          }
+        ]
+      },
+      {
+        "fieldGroupClassName": "display-flex",
+        "hideExpression": "model.isEdit",
+        "fieldGroup": []
+      },
+      {
+        "type": "tabs",
+        "hideExpression": "!model.isEdit",
+        "fieldGroup": [
+          {
+            "props": {
+              "label": "Description"
+            },
+            "fieldGroup": [
+              {
+                "type": "html",
+                "key": "description",
+                "className": "flex-2",
+                "props": {
+                  "label": "Description",
+                  "placeholder": "Name"
+                }
+              }
+            ]
+          },
+          {
+            "props": {
+              "label": "Language"
+            },
+            "expressions": {
+              "hide": "!model.isshow"
+            },
+            "fieldGroup": [
+              {
+                "type": "language_input",
+                "key": "language",
+                "className": "flex-1",
+                "props": {
+                  "label": "Language",
+                  "optionsDataSource": {
+                    "collectionName": "language"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "props": {
+              "label": "Image"
+            },
+            "fieldGroup": [
+              {
+                "type": "image_upload",
+                "key": "image",
+                "className": "flex-1",
+                "props": {
+                  "label": "Country",
+                  "endPoint": "product/image"
+                }
+              }
+            ],
+            "expressionProperties": {
+              "hide": "!model.isEdit"
+            }
+          },
+          {
+            "props": {
+              "label": "Video"
+            },
+            "fieldGroup": [
+              {
+                "type": "video_upload",
+                "key": "image",
+                "className": "flex-1",
+                "props": {
+                  "label": "Video Upload",
+                  "endPoint": "application/video"
+                }
+              }
+            ],
+            "expressionProperties": {
+              "hide": "!model.isEdit"
+            }
+          },
+          {
+            "props": {
+              "label": "Feature"
+            },
+            "fieldGroup": [
+              {
+                "type": "",
+                "key": "image",
+                "className": "flex-1",
+                "props": {
+                  "label": "Feature",
+                  "endPoint": ""
+                }
+              }
+            ],
+            "expressionProperties": {
+              "hide": "!model.isEdit"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+<div class="container">
+  <div style="width: 95%;">
+    <ag-grid-angular
+      #agGrid
+      style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
+      class="ag-theme-alpine"
+      [defaultColDef]="defaultColDef"
+      [columnDefs]="fields"
+      [rowData]="cardData"
+      (gridReady)="onGridReady($event)"
+      (firstDataRendered)="onFirstDataRendered($event)"
+    ></ag-grid-angular>
+  </div>
+</div>
+

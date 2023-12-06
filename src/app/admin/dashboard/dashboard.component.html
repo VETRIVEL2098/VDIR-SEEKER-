@@ -1,0 +1,19 @@
+<div>
+  <h3 class="dashboard">Dashboard</h3>
+    <p class="text">Home / Dashboard</p>
+  </div>
+
+  <div class="container">
+      <div *ngFor="let card of cards" style="height: 200px;width: 120rem;">
+      <app-card
+      [count]="card.count"
+      [text]="card.text"
+      [icon]="card.icon"
+      [iconColor]="card.iconColor"
+      [altText]="card.altText"
+      [height]="card.height"
+      [width]="card.width"
+    ></app-card>
+    </div>
+  </div>
+

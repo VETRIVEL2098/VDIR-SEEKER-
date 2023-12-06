@@ -1,0 +1,654 @@
+
+<style>
+  .sidebar {
+    height: 100vh;
+    background-color:var(--main-color);
+    color: #fff;
+    transition: all 0.3s;
+    margin-bottom: 5px;
+  }
+
+  .sidebar .sidebar-header {
+    padding: 20px;
+  }
+
+  .sidebar .sidebar-header h3 {
+    margin-bottom: 0;
+  }
+
+  .sidebar ul.components {
+    padding: 20px;
+  }
+
+  .sidebar ul.components li {
+    margin-bottom: 10px;
+  }
+
+  .sidebar ul.components li button {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    width: 100%;
+    padding: 8px 16px;
+    text-align: left;
+  }
+  /* li {
+border: 1px solid black;
+padding: 5px;
+}
+
+/* li:active,
+li:focus {
+border-color: red;
+} */
+/* li:target {
+color: red;
+} */
+  .sidebar.active {
+    width: 200px;
+  }
+
+  .sidebar.active .sidebar-header h3 {
+    display: none;
+  }
+
+  .sidebar.active .sidebar-header .burger-icon {
+    transform: rotate(180deg);
+  }
+
+  .content {
+    padding: 18px;
+  }
+  @media only screen and (max-width: 767px) {
+.container {
+  margin: 10px;
+}
+.table {
+  font-size: 13px;
+}
+.btn {
+  font-size: 12px;
+  padding: 8px 12px;
+}
+}
+@media only screen and (max-width: 767px) {
+  #sidebar-wrapper {
+    display: flex;
+  }
+
+  /* Show sidebar as a string */
+  .sidebar-toggle {
+    display: block;
+    padding: 10px;
+    background-color:var(--main-color);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+</style>
+
+<body>
+
+<div class="d-flex" id="sidebar-wrapper">
+  <div class="text-white " id="sidebar-wrapper" >
+    <div class="sidebar bg-danger justify-content-sm-start align-items-center mb-1">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar-wrapper" aria-controls="sidebar-wrapper" aria-expanded="false" aria-label="Toggle sidebar"></button>
+      <ul class="list-unstyled components">
+        <li>
+          <button class="btn btn-danger text-white custom-button" (click)="cl1(false)">Personal information</button>
+        </li>
+        <li>
+          <button class="btn btn-danger text-white custom-button" (click)="cl2(false)">Summary</button>
+        </li>
+        <li>
+          <button class="btn btn-danger text-white custom-button" (click)="cl3(false)">Education</button>
+        </li>
+        <li>
+          <button class="btn btn-danger text-white custom-button" (click)="cl8(false)">Certificates</button>
+        </li>
+        <li>
+          <button class="btn btn-danger text-white custom-button" (click)="cl4(false)">Professional Experience</button>
+        </li>
+        <li>
+          <button class="btn btn-danger text-white custom-button" (click)="cl5(false)">Skills</button>
+        </li>
+        <li>
+          <button class="btn btn-danger text-white custom-button" (click)="cl6(false)">Project Experience</button>
+        </li>
+        <li>
+          <button class="btn btn-danger text-white custom-button" (click)="cl7(false)">Extra Curricular Activities</button>
+        </li>
+        <li>
+          <button class="btn btn-danger text-white custom-button mb-5" (click)="total()" (click)="generatePdf()">Download Resume</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div [hidden]="personalinfo" class=" container mx-auto m-5 ">
+    <!-- <form >
+      <div class="mb-3">
+          <label for="fullName" class="form-label">Full Name</label>
+          <input type="text" class="form-control" [(ngModel)]="fullname1" [ngModelOptions]="{ standalone: true }" id="fullName" placeholder="Enter your full name" required>
+      </div>
+      <div class="mb-3">
+          <label for="text" class="form-label">Job Title</label>
+          <input type="text" class="form-control" id="title" [(ngModel)]="title1" [ngModelOptions]="{ standalone: true }" placeholder="Enter your Job title" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="email1" [ngModelOptions]="{ standalone: true }" placeholder="Enter your email address" required>
+    </div>
+      <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Phone Number</label>
+          <input type="tel" class="form-control" id="phoneNumber"  [(ngModel)]="phonenumber1" [ngModelOptions]="{ standalone: true }" placeholder="Enter your phone number" required>
+      </div>
+      <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <textarea class="form-control" id="address" rows="3"[(ngModel)]="address1" [ngModelOptions]="{ standalone: true }" placeholder="Enter your address" required></textarea>
+      </div>
+      <button type="button" class="btn btn-danger me-3" style="background-color:var(--main-color)"  (click)="resume()">Save</button>
+      <button type="button" class="btn btn-danger " style="background-color:var(--main-color)"(click)="cl2(false)">Next</button>
+
+  </form> -->
+  <form [formGroup]="personalForm">
+    <div class="mb-3">
+      <label for="fullName" class="form-label">Full Name</label>
+      <input type="text" class="form-control"  [(ngModel)]="fullname1"  formControlName="fullName" placeholder="Enter your full name">
+      <div *ngIf="personalForm.get('fullName')?.hasError('required')"  class="text-danger">
+        Full Name is required.
+      </div>
+      <div *ngIf="personalForm.get('fullName')?.hasError('pattern') " class="text-danger">
+        Full Name should not start or end with spaces.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="title" class="form-label">Job Title</label>
+      <input type="text" class="form-control" formControlName="title" [(ngModel)]="title1" placeholder="Enter your Job title">
+      <div *ngIf="personalForm.get('title')?.hasError('required') " class="text-danger">
+        Job Title is required.
+      </div>
+      <div *ngIf="personalForm.get('title')?.hasError('pattern') " class="text-danger">
+        Job Title should not start or end with spaces.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="email"  [(ngModel)]="email1" placeholder="Enter your email address">
+      <div *ngIf="personalForm.get('email')?.hasError('required') " class="text-danger">
+        Email is required.
+      </div>
+      <div *ngIf="personalForm.get('email')?.hasError('email') " class="text-danger">
+        Invalid email format.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="phoneNumber" class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" formControlName="phoneNumber" [(ngModel)]="phonenumber1" placeholder="Enter your phone number">
+      <div *ngIf="personalForm.get('phoneNumber')?.hasError('required')" class="text-danger">
+        Phone Number is required.
+      </div>
+      <div *ngIf="personalForm.get('phoneNumber')?.hasError('pattern') " class="text-danger">
+     Enter valid number
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Address</label>
+      <textarea class="form-control" formControlName="address" rows="3" [(ngModel)]="address1" placeholder="Enter your address"></textarea>
+      <div *ngIf="personalForm.get('address')?.hasError('required')" class="text-danger">
+        Address is required.
+      </div>
+      <div *ngIf="personalForm.get('address')?.hasError('pattern')" class="text-danger">
+        Address should not start or end with spaces.
+      </div>
+    </div>
+    <button type="button" class="btn btn-danger me-3" style="background-color: var(--main-color)" (click)="resume()" [disabled]="personalForm.invalid">Save</button>
+    <button type="button" class="btn btn-danger" style="background-color: var(--main-color)" (click)="cl2(false)">Next</button>
+  </form>
+
+</div>
+
+
+  <div [hidden]="summary" class="container mx-auto  m-5">
+
+
+
+
+     <form [formGroup]="summaryForm">
+     <div class="mb-3">
+      <label for="summary"  class="form-label">Summary</label>
+      <textarea class="form-control"  formControlName="summary" id="summary" rows="5"[(ngModel)]="summary1"  placeholder="Enter a summary" required></textarea>
+      <div *ngIf="summaryForm.get('summary')?.hasError('pattern')" class="text-danger">
+        Address should not start or end with spaces.
+      </div>
+  </div>
+  <button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)" (click)="resume()">Save</button>
+  <button type="button" class="btn btn-danger "  style="background-color:var(--main-color)"(click)="cl3(false)">Next</button>
+
+
+</form>
+</div>
+<div [hidden]="education" class="container mx-auto m-5 ">
+<table class="table">
+  <thead>
+      <tr>
+          <th>Education</th>
+          <th>University/Institution</th>
+          <th>Graduation Date</th>
+          <th>GPA</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let row of tablerows; let i = index">
+        <td>
+          <div class="mb-3">
+              <!-- <input type="text" class="form-control"  placeholder="Enter your degree or program of study" required> -->
+              <select style="color: black;" class="form-select"  [(ngModel)]="degrees[i] "  aria-label="Select you Education" >
+                <option disabled selected>Select your education</option>
+                <option [value]="value.education" *ngFor="let value of Data">{{value.education}} </option>
+              </select>
+          </div>
+      </td>
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="universities[i]" placeholder="Enter the name of the university or institution" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="universities[i]?.trim() !== universities[i]">
+                  Spaces at the start or end are not allowed.
+                </div>
+              </div>
+          </td>
+
+          <td>
+              <div class="mb-3">
+                  <input type="date" class="form-control"[(ngModel)]="graduationdates[i]" required>
+              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                <input type="number" class="form-control" [(ngModel)]="gpas[i]" step="0.01" min="0" max="10" placeholder="Enter your GPA" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+              </div>
+          </td>
+          <td>
+              <button type="button" class="btn btn-danger" (click)="deleteRow(i)">Delete</button>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)" (click)="addRow()">Add Education</button>
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)" (click)="resume()">Save</button>
+<button type="button" class="btn btn-danger "  style="background-color:var(--main-color)"  (click)="cl8(false)">Next</button>
+
+</div>
+
+<div  [hidden]="certificate" class="container mx-auto m-5 ">
+<table class="table">
+  <thead>
+      <tr>
+          <th>Certificate Name</th>
+          <th>Authority</th>
+          <th>Date Earned</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let row of certificaterows; let i = index">
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="certificatename[i]" placeholder="Enter the certificate name" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="certificatename[i]?.trim() !== certificatename[i]">
+                  Spaces at the start or end are not allowed.
+                </div>
+
+              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="authority[i]" placeholder="Enter the certificate authority" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="authority[i]?.trim() !== authority[i]">
+                  Spaces at the start or end are not allowed.
+                </div>
+                              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                  <input type="date" class="form-control" [(ngModel)]="dateearned[i]" required>
+              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                  <button type="button" class="btn btn-danger"  style="background-color:var(--main-color)" data-bs-toggle="modal" [attr.data-bs-target]="'#certificateModal' + i">View/Edit Description</button>
+                  <div class="modal fade" [id]="'certificateModal' + i" tabindex="-1" aria-labelledby="certificateModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="certificateModalLabel">Certificate Description</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <textarea class="form-control" [(ngModel)]="description[i]" rows="4" placeholder="Enter a description of the certificate" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed"></textarea>
+                                <div style="color: red;" *ngIf="description[i]?.trim() !== description[i]">
+                                  Spaces at the start or end are not allowed.
+                                </div>
+                                                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-danger"  style="background-color:var(--main-color)" data-bs-dismiss="modal">Close</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </td>
+          <td>
+              <button type="button" class="btn btn-danger" (click)="deleteCertificateRow(i)">Delete</button>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)" (click)="addCertificateRow()">Add Certificate</button>
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)" (click)="resume()">Save</button>
+<button type="button" class="btn btn-danger "  style="background-color:var(--main-color)"  (click)="cl4(false)">Next</button>
+
+
+</div>
+<div [hidden]="professionalexp" class="container mx-auto m-5 ">
+
+<table class="table">
+  <thead>
+      <tr>
+          <th>Company</th>
+          <th>Position</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Responsibilities</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let row of workexperience; let i = index">
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="company[i]" placeholder="Enter the name of the company" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="company[i]?.trim() !== company[i]">
+                  Spaces at the start or end are not allowed.
+                </div>
+                              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="position[i]" placeholder="Enter your position or job title" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="position[i]?.trim() !== position[i]">
+                  Spaces at the start or end are not allowed.
+                </div>
+                              </div>
+          </td>
+          <td>
+            <div class="mb-3">
+                <input type="date" class="form-control" [(ngModel)]="startdate[i]" required>
+            </div>
+        </td>
+        <td>
+            <div class="mb-3">
+                <input type="date" class="form-control" [(ngModel)]="enddate[i]" [min]="startdate[i]" required>
+                <div *ngIf="enddate[i] < startdate[i]" style="color: red;">End date must be greater than start date</div>
+            </div>
+        </td>
+
+
+
+              <div class="mb-3">
+                  <button type="button" class="btn btn-danger"  style="background-color:var(--main-color)" data-bs-toggle="modal" [attr.data-bs-target]="'#responsibilitiesModal' + i">View/Edit </button>
+
+                  <div class="modal fade" [id]="'responsibilitiesModal' + i" tabindex="-1" aria-labelledby="responsibilitiesModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="responsibilitiesModalLabel">Responsibilities</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <textarea class="form-control" [(ngModel)]="responsibilities[i]" rows="4" placeholder="Enter your responsibilities or tasks" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed"></textarea>
+                                <div style="color: red;" *ngIf="responsibilities[i]?.trim() !== responsibilities[i]">
+                                  Spaces at the start or end are not allowed.
+                                </div>
+                                                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-danger"  style="background-color:var(--main-color)" data-bs-dismiss="modal">Close</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          
+          <td>
+              <button type="button" class="btn btn-danger" (click)="deleteWorkExperienceRow(i)">Delete</button>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
+
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)"(click)="addWorkExperienceRow()">Add Work Experience</button>
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)" (click)="resume()">Save</button>
+<button type="button" class="btn btn-danger "  style="background-color:var(--main-color)" (click)="cl5(false)">Next</button>
+
+
+
+</div>
+<div [hidden]="skills" class="container mx-auto m-5">
+<table class="table">
+  <thead>
+      <tr>
+          <th>Skill Name</th>
+          <th>Skill Level</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let row of skillrows; let i = index">
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="skillname[i]" placeholder="Enter the skill name" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="skillname[i]?.trim() !== skillname[i]">
+                  Spaces at the start or end are not allowed.
+                </div>
+                              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                  <select class="form-select" [(ngModel)]="skilllevel[i]" required>
+                      <option selected disabled>Select skill level</option>
+                      <option value="Beginner">Beginner</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Advanced">Advanced</option>
+                  </select>
+              </div>
+          </td>
+          <td>
+              <button type="button" class="btn btn-danger" (click)="deleteSkillRow(i)">Delete</button>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)"(click)="addSkillRow()">Add Skill</button>
+<button type="button" class="btn btn-danger  me-3"  style="background-color:var(--main-color)" (click)="resume()">Save</button>
+<button type="button" class="btn btn-danger"  style="background-color:var(--main-color)" (click)="cl6(false)">Next</button>
+
+
+</div>
+<div [hidden]="projectexp" class="container mx-auto  m-5">
+<table class="table">
+  <thead>
+      <tr>
+          <th>Project Name</th>
+          <th>Role</th>
+          <th>Duration</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let row of projectrows; let i = index">
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="projectname[i]" placeholder="Enter the project name" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="projectname[i]?.trim() !== projectname[i]">
+                  Spaces at the start or end are not allowed.
+                </div>
+                              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="role[i]" placeholder="Enter your role in the project" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="role[i]?.trim() !== role[i]">
+                  Spaces at the start or end are not allowed.
+                </div>
+                              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="duration[i]" placeholder="Enter the project duration" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="duration[i]?.trim() !== duration[i]">
+                  Spaces at the start or end are not allowed.
+                </div>
+
+                              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                  <button type="button" class="btn btn-danger"  style="background-color:var(--main-color)" data-bs-toggle="modal" [attr.data-bs-target]="'#descriptionModal' + i">View/Edit Description</button>
+                  <div class="modal fade" [id]="'descriptionModal' + i" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="descriptionModalLabel">Project Description</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <textarea class="form-control" [(ngModel)]="description1[i]" rows="4" placeholder="Enter a description of the project" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed"></textarea>
+                                <div style="color: red;" *ngIf="description1[i]?.trim() !== description1[i]">
+                                  Spaces at the start or end are not allowed.
+                                </div>
+
+                                                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </td>
+          <td>
+              <button type="button" class="btn btn-danger" (click)="deleteProjectRow(i)">Delete</button>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)" (click)="addProjectRow()">Add Project</button>
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)"(click)="resume()">Save</button>
+<button type="button" class="btn btn-danger "  style="background-color:var(--main-color)"  (click)="cl7(false)">Next</button>
+
+</div>
+<div [hidden]="extracurricular" class="container mx-auto m-5">
+<table class="table">
+  <thead>
+      <tr>
+          <th>Activity Name</th>
+          <th>Skill Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let row of skillrows1; let j = index">
+          <td>
+              <div class="mb-3">
+                <input type="text" class="form-control" [(ngModel)]="activity[j]" placeholder="Enter the skill name" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed">
+                <div style="color: red;" *ngIf="activity[j]?.trim() !== activity[j]">
+                  Spaces at the start or end are not allowed.
+                </div>
+                              </div>
+          </td>
+          <td>
+              <div class="mb-3">
+                <textarea class="form-control" [(ngModel)]="description2[j]" rows="1" placeholder="Enter a description of the skills" required pattern="^\S.*\S$" title="Spaces at the start or end are not allowed"></textarea>
+                <div style="color: red;" *ngIf="description2[j]?.trim() !== description2[j]">
+                  Spaces at the start or end are not allowed.
+                </div>
+                              </div>
+          </td>
+          <td>
+              <button type="button" class="btn btn-danger" (click)="deleteSkillRow2(j)">Delete</button>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)" (click)="addSkillRow1()">Add Skill</button>
+
+<button type="button" class="btn btn-danger me-3"  style="background-color:var(--main-color)" (click)="resume()">Submit</button>
+<!-- <button type="button" class="btn btn-danger"  style="background-color:var(--main-color)"(click)="generatePdf()">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+  <path d="M8 11a.5.5 0 0 1-.5-.5V4.707L5.354 6.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 4.707V10.5a.5.5 0 0 1-.5.5z"/>
+  <path d="M4 13h8a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z"/>
+</svg>
+Download
+</button> -->
+
+<!-- (click)="total()" (click)="getUserValues5()" -->
+
+
+
+
+<!-- <form>
+  <div class="contra justify-content-between">
+    <div *ngFor="let hobby of hobbiesArray.controls; last as isLast; index as idx" class="input-row">
+      <mat-form-field>
+        <input matInput placeholder="skills" [formControl]="hobby">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="description" [formControl]="hobby">
+      </mat-form-field>
+      <div class="add">
+      <button mat-icon-button color="primary" *ngIf="isLast" (click)="addInputControl()">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" *ngIf="hobbiesArray.length > 1 isLast" (click)="removeInputControl(idx)">
+        <mat-icon>remove_circle</mat-icon>
+      </button>
+    </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-dark">Submit</button>
+</form> -->
+</div>
+<!-- <div class="contra">
+      <div *ngFor="let hobby of hobbiesArray.controls; last as isLast; index as idx" class="input-row">
+          <mat-form-field>
+            <input matInput [formControl]="hobby">
+          </mat-form-field>
+          <button
+          mat-icon-button
+          color="primary"
+          *ngIf="isLast"
+          (click)="addInputControl()"
+        >
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      <button mat-icon-button color="warn" *ngIf="hobbiesArray.length > 1 isLast" (click)="removeInputControl(idx)">
+        <mat-icon>remove_circle</mat-icon>
+      </button>
+
+    </div>
+
+
+</div> -->
+
+</div>
+
+
+</body>
+

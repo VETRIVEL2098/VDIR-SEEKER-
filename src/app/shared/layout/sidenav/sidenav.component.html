@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Example</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* body {
+      background-color: #f7f7f7;
+    } */
+
+    .sidebar {
+      background-color:var(--main-color);
+      color: #fff;
+      transition: all 0.3s;
+    }
+
+    .sidebar .sidebar-header {
+      padding: 20px;
+    }
+
+    .sidebar .sidebar-header h3 {
+      margin-bottom: 0;
+    }
+
+    .sidebar ul.components {
+      padding: 20px;
+    }
+
+    .sidebar ul.components li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul.components li button {
+      color: #fff;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      width: 100%;
+      padding: 8px 16px;
+      text-align: left;
+    }
+
+    .sidebar ul.components li button i {
+      margin-right: 10px;
+    }
+
+    .sidebar.active {
+      width: 200px;
+    }
+
+    .sidebar.active .sidebar-header h3 {
+      display: none;
+    }
+
+    .sidebar.active .sidebar-header .burger-icon {
+      transform: rotate(180deg);
+    }
+
+    .content {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="d-flex  " id="wrapper">
+    <div class="text-white"  id="sidebar-wrapper bg-danger">
+      <div class="sidebar bg-danger" style="height: 100vh;">
+
+        <ul class="list-unstyled components">
+          <!-- <li>//todo
+            <button class="btn btn-danger text-white custom-button" type="button" id="collapseButton">
+              <i class="fas fa-bars fa-sm"></i>Collapse
+            </button>
+          </li> -->
+          <li>
+            <button class="btn btn-danger text-white custom-button" (click)="route5()" type="button">
+              <i class="fas  fa-home fa-sm"></i> Home
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-danger text-white custom-button" (click)="route4()" type="button">
+              <i class="fas  fa-home fa-sm"></i> My Profile
+            </button>
+          </li>
+          <!-- <li>
+            <button class="btn btn-danger text-white custom-button" (click)="route3()" type="button">
+              <i class="fas fa-user-circle  fa-sm"></i>Edit Profile
+            </button>
+          </li> -->
+          <li>
+            <button class="btn btn-danger text-white custom-button" (click)="route1()" type="button">
+              <i class="fas fa-suitcase fa-sm"></i>Jobs
+            </button>
+          </li>
+
+
+          <!-- <li>
+            <button class="btn btn-danger text-white custom-button" type="button">
+              <i class="fas fa-bullhorn fa-sm"></i> Campaign
+            </button>
+          </li> -->
+          <li>
+            <button class="btn btn-danger text-white custom-button" (click)="route2()" type="button">
+              <i class="fas fa-users fa-sm"></i> Candidates
+            </button>
+          </li>
+
+          <!--<li>
+            <button class="btn btn-danger text-white custom-button" type="button">
+              <i class="fas fa-comments fa-sm"></i> Interviews
+            </button>
+           </li> -->
+          <!-- <li class="dropdown">
+            <button class="btn btn-danger text-white custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#analyticsDropdown" aria-expanded="false">
+              <i class="fas fa-chart-bar fa-sm"></i> Analytics
+            </button>
+            <ul class="collapse list-unstyled" id="analyticsDropdown">
+              <li><button class="btn btn-danger text-white custom-button" type="button">Analytics Overview</button></li>
+              <li><button class="btn btn-danger text-white custom-button" type="button">Jobs and Campaigns</button></li>
+              <li><button class="btn btn-danger text-white custom-button" type="button">CV Hiring Insight</button></li>
+            </ul>
+          </li> -->
+          <!-- <li class="dropdown">
+            <button class="btn btn-danger text-white custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#toolsDropdown" aria-expanded="false">
+              <i class="fas fa-tools fa-sm"></i> Tools
+            </button>
+            <ul class="collapse list-unstyled" id="toolsDropdown">
+              <li><button class="btn btn-danger text-white custom-button" type="button">Contact Us</button></li>
+              <li><button class="btn btn-danger text-white custom-button" type="button">Help Center</button></li>
+            </ul>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+      <!-- Content goes here -->
+      <div style="width: 100%; height: 100vh; overflow-y: scroll;"  >
+        <router-outlet></router-outlet>
+
+      </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const collapseButton = document.getElementById('collapseButton');
+    const sidebarWrapper = document.getElementById('wrapper');
+    const sidebar = document.querySelector('.sidebar');
+
+    collapseButton.addEventListener('click', function() {
+      sidebarWrapper.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ul class="list-unstyled components">
+  <li>
+    <button class="btn btn-danger text-white custom-button" type="button" id="collapseButton">
+      <i class="fas fa-bars fa-sm"></i>Collapse
+    </button>
+  </li>
+  <li>
+    <button class="btn btn-danger text-white custom-button" (click)="route3()" type="button">
+      <i class="fas fa-tasks fa-sm"></i> Post a Jobs
+    </button>
+  </li>
+  <li>
+    <button class="btn btn-danger text-white custom-button" (click)="route1()" type="button">
+      <i class="fas fa-suitcase fa-sm"></i> Jobs
+    </button>
+  </li>
+
+
+  <li>
+    <button class="btn btn-danger text-white custom-button" type="button">
+      <i class="fas fa-bullhorn fa-sm"></i> Campaign
+    </button>
+  </li>
+  <li>
+    <button class="btn btn-danger text-white custom-button" (click)="route2()" type="button">
+      <i class="fas fa-users fa-sm"></i> Candidates
+    </button>
+  </li>
+  <li>
+    <button class="btn btn-danger text-white custom-button" type="button">
+      <i class="fas fa-search fa-sm"></i> Search CVs
+    </button>
+  </li>
+  <li>
+    <button class="btn btn-danger text-white custom-button" type="button">
+      <i class="fas fa-comments fa-sm"></i> Interviews
+    </button>
+  </li>
+  <li class="dropdown">
+    <button class="btn btn-danger text-white custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#analyticsDropdown" aria-expanded="false">
+      <i class="fas fa-chart-bar fa-sm"></i> Analytics
+    </button>
+    <ul class="collapse list-unstyled" id="analyticsDropdown">
+      <li><button class="btn btn-danger text-white custom-button" type="button">Analytics Overview</button></li>
+      <li><button class="btn btn-danger text-white custom-button" type="button">Jobs and Campaigns</button></li>
+      <li><button class="btn btn-danger text-white custom-button" type="button">CV Hiring Insight</button></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <button class="btn btn-danger text-white custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#toolsDropdown" aria-expanded="false">
+      <i class="fas fa-tools fa-sm"></i> Tools
+    </button>
+    <ul class="collapse list-unstyled" id="toolsDropdown">
+      <li><button class="btn btn-danger text-white custom-button" type="button">Contact Us</button></li>
+      <li><button class="btn btn-danger text-white custom-button" type="button">Help Center</button></li>
+    </ul> -->

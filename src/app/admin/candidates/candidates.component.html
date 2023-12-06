@@ -1,0 +1,59 @@
+
+<!-- <div style="display: flex;justify-content: end; margin-top: 20px;">
+  <button class="btn btn-dark" style="margin: 5px;" (click)="viewCanditeInfo('all')">
+    ALL CANDITATES  
+       </button>
+  <button class="btn btn-dark" style="margin: 5px;" (click)="viewCanditeInfo('New_Registration')">
+  NEW REGISTRATION  
+     </button>
+     <button class="btn btn-dark" style="margin: 5px;" (click)="viewCanditeInfo('Hold')">
+      ON Hold  
+     </button>
+     <button class="btn btn-dark" style="margin: 5px;" (click)="viewCanditeInfo('Selected')">
+      SELECTED
+         </button>
+     <button class="btn btn-dark" style="margin: 5px;" (click)="viewCanditeInfo('Not_Selected')">
+      Not Selected 
+    </button>
+</div> -->
+<div style="margin-top: 20px;">
+  
+  <span (click)="routeback()"><mat-icon>arrow_back</mat-icon></span>
+  <div  style="display: flex; justify-content: space-between; ">
+    <div>
+      JOB ROLE :{{value.role?value.role:'All Canditate'}} <br>
+      JOB TILTLE : {{value.title?value.title:'All Jobs'}}
+    </div>
+    <div>
+      <div style="max-width: 250px;justify-content: end;" >
+        <select class="form-select" id="Select" (change)="viewCanditeInfo()">
+          <option selected value="New_Registration">NEW REGISTRATION</option>
+          <option value="Selected">SELECTED</option>
+          <option value="Hold">HOLD</option>   
+          <option value="REJECTED">REJECTED</option>
+          <option value="all">ALL CANDIDATES</option>
+        </select>
+      </div>
+    </div>
+    
+  </div>
+
+</div>
+<div style='width: 95%; margin-top: 50px;' class="mx-auto">
+  <ag-grid-angular
+  #agGrid
+  style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
+  class="ag-theme-alpine"
+  [defaultColDef]="defaultColDef"
+  [columnDefs]="fields"
+  [rowData]="cardData"
+  (gridReady)="onGridReady($event)"
+  (firstDataRendered)="onFirstDataRendered($event)" 
+  (selectionChanged)="onSelect($event)"
+
+  [components]="frameworkComponents"
+
+  [context]="context"
+
+></ag-grid-angular>
+</div>

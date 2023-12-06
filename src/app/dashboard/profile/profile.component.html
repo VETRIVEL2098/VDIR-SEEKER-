@@ -1,0 +1,102 @@
+    <div class="card">
+      <div class="card-body">
+        <div class="text-center mb-5">
+          <div fxLayoutAlign="center center">
+            <label class="hoverable" for="fileInput">
+              <img [src]="url ? url : profile.profile_pic ? profile.profile_pic : ''">
+              <div class="hover-text">Upload Profile</div>
+              <div class="background"></div>
+              <input id="fileInput" type='file' (change)="handleFileUpload()" (change)="onSelectFile($event)">
+            </label>
+          </div>
+        </div>
+
+        <hr>
+
+        <h3 class="card-title">Profile Information</h3>
+
+
+        <form [formGroup]="profileForm">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" class="form-control" formControlName="firstName" [(ngModel)]="profile.firstName">
+            <div *ngIf="profileForm.get('firstName')?.hasError('required') && profileForm.get('firstName')?.touched"
+                 style="color: red;">First Name is required</div>
+            <div *ngIf="profileForm.get('firstName')?.hasError('noSpaceAtStartEnd') && profileForm.get('firstName')?.touched"
+                 style="color: red;">Invalid First Name</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" class="form-control" formControlName="lastName"  [(ngModel)]="profile.lastName">
+            <div *ngIf="profileForm.get('lastName')?.hasError('required') && profileForm.get('lastName')?.touched"
+                 style="color: red;">Last Name is required</div>
+            <div *ngIf="profileForm.get('lastName')?.hasError('noSpaceAtStartEnd') && profileForm.get('lastName')?.touched"
+                 style="color: red;">Invalid Last Name</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" formControlName="email"  [(ngModel)]="profile.email">
+            <div *ngIf="profileForm.get('email')?.hasError('required') && profileForm.get('email')?.touched"
+                 style="color: red;">Email is required</div>
+            <div *ngIf="profileForm.get('email')?.hasError('email') && profileForm.get('email')?.touched"
+                 style="color: red;">Invalid email format</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="text" id="phone" class="form-control" formControlName="phone" [(ngModel)]="profile.phone">
+            <div *ngIf="profileForm.get('phone')?.hasError('required') && profileForm.get('phone')?.touched"
+                 style="color: red;">Phone Number is required</div>
+            <div *ngIf="profileForm.get('phone')?.hasError('noSpaceAtStartEnd') && profileForm.get('phone')?.touched"
+                 style="color: red;">Invalid Phone Number</div>
+
+          </div>
+
+
+          <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" id="address" class="form-control" formControlName="address" [(ngModel)]="profile.address">
+            <div *ngIf="profileForm.get('address')?.hasError('required') && profileForm.get('address')?.touched"
+                 style="color: red;">Address is required</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="dateofbirth" class="form-label">Date of Birth</label>
+            <input type="text" id="dateofbirth" class="form-control" formControlName="dateofbirth" [(ngModel)]="profile.dateofbirth">
+            <div *ngIf="profileForm.get('dateofbirth')?.hasError('required') && profileForm.get('dateofbirth')?.touched"
+                 style="color: red;">Date of Birth is required</div>
+            <div *ngIf="profileForm.get('dateofbirth')?.hasError('pattern') && profileForm.get('dateofbirth')?.touched"
+                 style="color: red;">Enter a valid Date of Birth (dd/mm/yyyy)</div>
+                 <div *ngIf="profileForm.get('dateofbirth')?.hasError('noSpaceAtStartEnd') && profileForm.get('dateofbirth')?.touched"
+                 style="color: red;">no empty spaces are allowed</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="education" class="form-label">Education</label>
+            <input type="text" id="education" class="form-control" formControlName="education" [(ngModel)]="profile.education">
+            <div *ngIf="profileForm.get('education')?.hasError('required') && profileForm.get('education')?.touched"
+                 style="color: red;">Education is required</div>
+            <div *ngIf="profileForm.get('education')?.hasError('noSpaceAtStartEnd') && profileForm.get('education')?.touched"
+                 style="color: red;">Invalid Education</div>
+          </div>
+        </form>
+
+        </div>
+
+        <div class="text-end mb-3 me-3">
+          <button type="button" class="btn btn-danger"  style="background-color:var(--main-color);" (click)="editing ? saveProfile() : editing = true">
+            {{ editing ? 'Save' : 'Edit' }}
+          </button>
+        </div>
+        <a *ngIf="profile && profile.resume" [href]="profile.resume" style="margin-bottom: 20px; margin-left: 5px;">Would YOU LIKE Downloaded The Resume</a>
+
+        <div class="mb-3">
+          <div class="input-group ">
+            <input class="form-control ms-3" type="file" id="formFile">
+            <button class="btn btn-primary btn-danger me-3"  style="background-color:var(--main-color);"(click)="ResumeUpload()" type="button">Upload</button>
+          </div>
+        </div>
+      </div>
+

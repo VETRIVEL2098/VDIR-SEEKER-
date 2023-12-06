@@ -1,0 +1,587 @@
+<div className="font container">
+  <div style="background-color: var(--main-color); width: 100%">
+    <div class="container py-5 h-100" *ngIf="Seeker">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0 mx-auto mt-5">
+          <div class="card" style="border-radius: 1rem">
+            <div class="card-body py-5 px-md-5">
+              <form [formGroup]="regis" class="mb-5">
+                <div class="row">
+                  <!-- <h1>Register as a {{category}}</h1> -->
+                  <div class="col-md-6 mb-4">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        id="inp"
+                        placeholder="First name"
+                        class="form-control"
+                        required
+                        [class.is-invalid]="
+                          functions1.firstName.invalid &&
+                          functions1.firstName.touched
+                        "
+                        [class.is-valid]="functions1.firstName.valid"
+                        formControlName="firstName"
+                      />
+                      <label class="form-label" for="typeFirstnameX"
+                        >First name</label
+                      >
+                      <ng-container *ngIf="first && first.invalid && first.touched">
+                        <span *ngIf="regis.get('firstName')?.hasError('hasSpaces')" style="color: red">No empty spaces or numbers allowed</span>
+                        <span *ngIf="regis.get('firstName')?.hasError('pattern')  && !regis.get('firstName')?.hasError('hasSpaces')" style="color: red">No special characters are allowed</span>
+                        <span *ngIf="!regis.get('firstName')?.hasError('hasSpaces') && !regis.get('firstName')?.hasError('pattern')" style="color: red">Enter a valid name</span>
+                      </ng-container>
+
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        id="inp"
+                        placeholder="Last name"
+                        class="form-control"
+                        [class.is-invalid]="
+                          functions1.lastName.invalid &&
+                          functions1.lastName.touched
+                        "
+                        [class.is-valid]="functions1.lastName.valid"
+                        required
+                        formControlName="lastName"
+                      />
+                      <label class="form-label" for="typeLastnameX"
+                        >Last name</label
+                      >
+                      <ng-container *ngIf="last && last.invalid && last.touched">
+                        <span *ngIf="regis.get('lastName')?.hasError('hasSpaces')" style="color: red">No empty spaces or numbers allowed</span>
+                        <span *ngIf="regis.get('lastName')?.hasError('pattern') && !regis.get('lastName')?.hasError('hasSpaces')" style="color: red">No special characters are allowed</span>
+                        <span *ngIf="!regis.get('lastName')?.hasError('hasSpaces') && !regis.get('lastName')?.hasError('pattern')" style="color: red">Enter a valid last name</span>
+                      </ng-container>
+
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-floating">
+                      <input
+                        type="number"
+                        [class.is-invalid]="
+                          functions1.phone.invalid && functions1.phone.touched
+                        "
+                        [class.is-valid]="functions1.phone.valid"
+                        id="inp"
+                        placeholder="Phone number"
+                        class="form-control"
+                        formControlName="phone"
+                      />
+                      <label class="form-label" for="typePhoneNumberX"
+                        >Phone Number</label
+                      >
+                      <span
+                        *ngIf="phone && phone.invalid && phone.touched"
+                        style="color: red"
+                        >Enter Valid Number</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-floating">
+                      <input
+                        type="date"
+                        [class.is-invalid]="
+                          functions1.dateofbirth.invalid &&
+                          functions1.dateofbirth.touched
+                        "
+                        [class.is-valid]="functions1.dateofbirth.valid"
+                        id="inp"
+                        placeholder="Date of Birth"
+                        class="form-control"
+                        formControlName="dateofbirth"
+                      />
+                      <label class="form-label" for="typeDobX"
+                        >Date of Birth</label
+                      >
+                      <span
+                        *ngIf="dob && dob.invalid && dob.touched"
+                        style="color: red"
+                        >Age Must Be Above 18</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-floating mb-4">
+                  <input
+                    type="input"
+                    id="inp"
+                    [class.is-invalid]="
+                      functions1.email.invalid && functions1.email.touched
+                    "
+                    [class.is-valid]="functions1.email.valid"
+                    placeholder="Address"
+                    class="form-control"
+                    formControlName="address"
+                  />
+                  <label class="form-label" for="typeaddressX">Address</label>
+                  <span
+                  *ngIf="add && add.invalid && add.touched"
+                  style="color: red"
+                  >Enter your address</span
+                >
+                </div>
+                <div class="form-floating mb-4">
+                  <input
+                    type="email"
+                    id="inp"
+                    [class.is-invalid]="
+                      functions1.email.invalid && functions1.email.touched
+                    "
+                    [class.is-valid]="functions1.email.valid"
+                    placeholder="Email address"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                  <label class="form-label" for="typeEmailaddressX"
+                    >Email</label
+                  >
+                  <span
+                    *ngIf="emil && emil.invalid && emil.touched"
+                    style="color: red"
+                    >Enter Valid E-mail</span
+                  >
+                </div>
+                <div class="form-floating mb-4">
+                  <input
+                    type="password"
+                    [class.is-invalid]="
+                      functions1.password.invalid && functions1.password.touched
+                    "
+                    [class.is-valid]="functions1.password.valid"
+                    id="inp"
+                    placeholder="Password"
+                    class="form-control"
+                    formControlName="password"
+                  />
+                  <span
+                    *ngIf="passwd && passwd.invalid && passwd.touched"
+                    style="color: red"
+                    >Enter the valid password(Must contain one
+                    Uppercase,Lowercase,Number and Special character)</span
+                  >
+                  <label class="form-label" for="typeEmailaddressX"
+                    >Password</label
+                  >
+                </div>
+
+                <div class="row d-grid justify-content-center">
+                  <h3>Higher Education</h3>
+                  <mat-chip-listbox
+                    aria-label="Education"
+                    formControlName="education"
+                  >
+                    <mat-chip-option value="10th">10th</mat-chip-option>
+                    <mat-chip-option value="12th">12th</mat-chip-option>
+                    <mat-chip-option value="Diploma">Diploma</mat-chip-option>
+                    <mat-chip-option value="ITI">ITI</mat-chip-option>
+                    <mat-chip-option value="Degree">Degree</mat-chip-option>
+                  </mat-chip-listbox>
+                </div>
+
+                <div class="d-flex justify-content-center mt-5">
+                  <button
+                    type="submit"
+                    [disabled]="regis.invalid"
+                    (click)="func5('Seeker')"
+                    class="btn md-3 btn-block mb-4"
+                    style="background-color: var(--button-color)"
+                  >
+                    Sign up
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container py-5" *ngIf="Company">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0 mx-auto mt-5">
+          <div class="card" style="border-radius: 1rem">
+            <div class="card-body py-5 px-md-5">
+              <div class="row" style="height: 100vh">
+                <form [formGroup]="employee">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-floating mb-3">
+                        <input
+                        type="text"
+                        class="form-control"
+                        [class.is-invalid]="functions.Name.invalid && functions.Name.touched"
+                        [class.is-valid]="functions.Name.valid"
+                        formControlName="Name"
+                        placeholder="Enter your Name"
+                      />
+                        <label for="name">Name</label>
+                        <small style="color: red;" *ngIf="employee.get('Name')?.hasError('required') && employee.get('Name')?.touched" class="error-message">
+                          Name is required
+                        </small>
+                        <small style="color: red;" *ngIf="employee.get('Name')?.hasError('hasSpaces') && employee.get('Name')?.touched" class="error-message">
+                          No empty spaces at start or end allowed
+                        </small>
+                        <small style="color: red;" *ngIf="employee.get('Name')?.hasError('pattern') && employee.get('Name')?.touched" class="error-message">
+                          No special character are allowed
+                        </small>
+                        <small style="color: red;" *ngIf="employee.get('Name')?.hasError('minLength') && employee.get('Name')?.touched" class="error-message">
+                          Minimum 3 letters needed..
+                        </small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating mb-1">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="functions.CompanyName.invalid && functions.CompanyName.touched"
+                          [class.is-valid]="functions.CompanyName.valid"
+                          formControlName="CompanyName"
+                          placeholder="Enter your company name"
+                        />
+                        <label for="company">Company Name</label>
+                        <small style="color: red;" *ngIf="functions.CompanyName.errors?.['required'] && functions.CompanyName.touched" class="error-message">
+                          Company Name is required
+                        </small>
+                        <small style="color: red;" *ngIf="functions.CompanyName.errors?.['hasSpaces'] && functions.CompanyName.touched" class="error-message">
+                          No empty spaces at start or end allowed
+                        </small>
+                        <small style="color: red;" *ngIf="functions.CompanyName.errors?.['pattern'] && functions.CompanyName.touched" class="error-message">
+                          No special character are allowed
+                        </small>
+                        <small style="color: red;" *ngIf="functions.CompanyName.errors?.['minLength'] && functions.CompanyName.touched" class="error-message">
+                          Minimum 3 letters needed..
+                        </small>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="form-floating mb-1">
+                    <input
+                      type="number"
+                      class="form-control"
+                      [class.is-invalid]="
+                        functions.phone.invalid && functions.phone.touched
+                      "
+                      [class.is-valid]="functions.phone.valid"
+                      formControlName="phone"
+                      placeholder="Enter your mobile number"
+                    />
+                    <label for="mobile">Mobile Number</label>
+                    <small
+                      *ngIf="functions.phone.errors?.['required'] && functions.phone.touched  "
+                      style="color: red">
+                      Mobile Number is required
+                    </small>
+                    <small
+                      *ngIf="functions.phone.errors?.['pattern'] && functions.phone.touched"
+                      style="color: red">
+                     Enter Valid Phone number
+                    </small>
+                  </div>
+                  <div class="form-floating mb-1">
+                    <input
+                      type="email"
+                      class="form-control"
+                      formControlName="email"
+                      placeholder="Enter your email"
+                    />
+                    <label for="email">Email ID</label>
+                    <span
+                    *ngIf="emil1 && emil1.invalid && emil1.touched"
+                    style="color: red"
+                    >Enter Valid E-mail</span
+                  >
+                  </div>
+                  <div class="row">
+                    <div>
+                      <div class="form-floating mb-1">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="
+                            functions.street.invalid && functions.street.touched
+                          "
+                          [class.is-valid]="functions.street.valid"
+                          placeholder="Enter your street name"
+                          formControlName="street"
+                        />
+                        <label for="street">Building no & Street Name</label>
+                        <small
+                          *ngIf="functions.street.errors?.['required'] && functions.street.touched  "
+                          style="color: red">
+                          Street Name is required
+                        </small>
+                        <small
+                        *ngIf="functions.street.errors?.['hasSpaces'] && functions.street.touched  "
+                        style="color: red">
+                        No empty space should be Allowed
+                      </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-floating mb-1">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="
+                            functions.area.invalid && functions.area.touched
+                          "
+                          [class.is-valid]="functions.area.valid"
+                          placeholder="Enter your area name"
+                          formControlName="area"
+                        />
+                        <label for="area">Area Name</label>
+                        <small
+                          *ngIf="functions.area.errors?.['required'] && functions.area.touched  "
+                          style="color: red">
+                          Area is required
+                        </small>
+                        <small
+                        *ngIf="functions.area.errors?.['hasSpaces'] && functions.area.touched  "
+                        style="color: red">
+                        No empty space should be Allowed
+                      </small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating mb-1">
+                        <input
+                          type="number"
+                          class="form-control"
+                          (change)="my($event)"
+                          [class.is-invalid]="
+                            functions.pincode.invalid &&
+                            functions.pincode.touched
+                          "
+                          [class.is-valid]="functions.pincode.valid"
+                          placeholder="Enter your pincode"
+                          formControlName="pincode"
+                        />
+                        <label for="pincode">Pincode</label>
+                        <small
+                          *ngIf="functions.pincode.errors?.['required'] && functions.pincode.touched  "
+                          style="color: red">
+                          PinCode is required
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!-- <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="sub_distname" placeholder="Enter your pincode" formControlName="sub_distname">
+            <label for="sub_distname">Sub District</label>
+          </div>
+        </div> -->
+
+                    <div class="col-md-6">
+                      <div class="form-floating mb-1">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-valid]="functions.districtname.valid"
+                          id="districtname"
+                          placeholder="Enter your pincode"
+                          formControlName="districtname"
+                        />
+                        <label for="districtname">District</label>
+                        <small
+                        *ngIf="functions.statename.errors?.['required'] && functions.statename.touched  "
+                        style="color: red">
+                        State name is required
+                      </small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating mb-1">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-valid]="functions.statename.valid"
+                          disable="val"
+                          id="statename"
+                          placeholder="Enter your pincode"
+                          formControlName="statename"
+                        />
+                        <label for="statename">State Name</label>
+                        <small
+                          *ngIf="functions.statename.errors?.['required'] && functions.statename.touched  "
+                          style="color: red">
+                          State name is required
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-floating mb-1">
+                    <input
+                      type="password"
+                      [class.is-invalid]="
+                        functions.password.invalid && functions.password.touched
+                      "
+                      [class.is-valid]="functions.password.valid"
+                      class="form-control"
+                      id="password"
+                      formControlName="password"
+                      placeholder="Enter your password"
+                    />
+                    <label for="password">Password</label>
+                    <small
+                      *ngIf="functions.password.errors?.['required'] && functions.password.touched"
+                      style="color: red">
+                    Enter the valid password(Must contain one
+                    Uppercase,Lowercase,Number and Special character)
+                    </small>
+                    <small
+                    *ngIf="functions.password.errors?.['hasSpaces'] && functions.password.touched"
+                    style="color: red">
+                  no empty space allowed in password
+                  </small>
+                    <br />
+                  </div>
+                  <div class="form-floating mb-1">
+                    <input
+                      type="password"
+                      class="form-control"
+                      (blur)="check()"
+                      id="confirmPassword"
+                      placeholder="Confirm your password"
+                    />
+                    <label for="confirmPassword">Confirm Password</label>
+                    <small
+                      *ngIf="trigger && uscpass != functions.password.value"
+                    >
+                      Password mismatch
+                    </small>
+                  </div>
+                  <button
+                    type="button"
+                    [disabled]="trigger1"
+                    class="btn btn-primary d-flex mx-auto"
+                    (click)="submitForm('Company')"
+                  >
+                    Sign up
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container py-5" *ngIf="selfEmployer">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Self_Employer Form</h5>
+      <form [formGroup]="
+        selfEmployerForm" (ngSubmit)="onSubmit()">
+        <!-- Profile Photo Upload -->
+        <div class="d-flex justify-content-center">
+        <div class="text-center mb-5">
+          <div fxLayoutAlign="center center">
+            <label class="hoverable" for="profileLogo">
+              <img [src]="url ? url :'' ">
+              <div class="hover-text">Upload Profile</div>
+              <div class="background"></div>
+              <input id="profileLogo" type='file' style='display:none' (change)="handleFileUpload('profileLogo','profileLogo')" (change)="onSelectFile($event,'profileLogo')">
+            </label>
+            <div class="fs-6">Profile</div>
+          </div>
+        </div>
+      </div>
+        <!-- Name and Father's Name -->
+        <div class="row ">
+          <div class="col">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" formControlName="name">
+          </div>
+          <div class="col">
+            <label for="fatherName">Father's Name</label>
+            <input type="text" class="form-control" formControlName="fatherName">
+          </div>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="mb-3">
+          <label for="dob">Date of Birth</label>
+          <input type="date" class="form-control" formControlName="dob">
+        </div>
+
+        <!-- Email and Mobile Number -->
+        <div class="row  ">
+          <div class="col">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" formControlName="email">
+          </div>
+          <div class="col">
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" class="form-control "maxlength="10" formControlName="mobile">
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="">
+          <label for="address">Address</label>
+          <textarea class="form-control" formControlName="address" rows="3"></textarea>
+        </div>
+
+        <!-- Aadhaar Photo Upload and Community Certificate Upload -->
+        <div class="row ">
+          <div class="col">
+            <label for="aadhaar-photo">Aadhaar Photo Upload</label>
+            <input id="aadhaarPhoto" type="file" class="form-control" (change)="handleFileUpload('aadhaarPhoto','aadhaarPhoto')" (change)="onSelectFile($event,'aadhaarPhoto')">
+          </div>
+          <div class="col">
+            <label for="community-certificate">Community Certificate Upload</label>
+            <input id="certificate" type="file" class="form-control" (change)="handleFileUpload('certificate','certificate')" (change)="onSelectFile($event,'certificate')">
+          </div>
+        </div>
+
+        <!-- Business Category and Sub Business Category -->
+        <div class="row ">
+          <div class="col">
+            <label for="business-category">Business Category</label>
+            <select class="form-select" formControlName="businessCategory">
+              <!-- Add your business categories here -->
+              <option value="" disabled selected>Select Business Category</option>
+              <option value="{{val.business_category}}" *ngFor="let val of business">{{val.business_category}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="sub-business-category">Sub Business Category</label>
+            <select class="form-select" formControlName="subBusinessCategory">
+              <!-- Add your sub-business categories here -->
+              <option value="" disabled selected>Select Sub Business Category</option>
+              <option value="{{val.business_category}}" *ngFor="let val of business">{{val.business_category}}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="">
+          <label for="skills">Skills</label>
+          <input type="text" class="form-control" formControlName="skills">
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary mt-3" (click)="selfEmployerSubmit('selfEmployer')">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+  </div>
+  </div>
+</div>

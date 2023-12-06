@@ -1,0 +1,69 @@
+<div class="container" fxLayout="column" style="display: flex;justify-content: center;margin-top: 30px;" fxLayoutAlign="center center" fxFlex="100%">
+  <!-- Basic information of Form group data  -->
+  <div class="text-view">
+    <h4 class="page-title" style="margin-top: 20px;"><b>{{pageTitle}}</b></h4>
+  </div>
+  <form [formGroup]="frmAgenda" fxLayout="column" fxLayoutAlign="center none" #frmaddUser="ngForm" fxFlex="80%">
+    <!-- Session Name -->
+    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+      <mat-form-field fxFlex="100%">
+        <input matInput placeholder="Session Name *"  type="text" [maxlength]=200 formControlName="name"
+               style="text-transform: uppercase;width: 700px;">
+      </mat-form-field>
+    </div>
+
+    <!-- Session Theme or Short Desc -->
+    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+      <mat-form-field fxFlex="100%">
+        <input matInput placeholder="Theme or Short Description *" type="text" [maxlength]=300 formControlName="desc">
+      </mat-form-field>
+    </div>
+
+    <!-- Session Start DateTime -->
+    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+      <mat-form-field fxFlex="100%">
+        <input matInput placeholder="Choose Session Start Date & Time" [matDatepicker]="startDate"
+               formControlName="sessionStartDate" [min]="today">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- Session End DateTime -->
+    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+      <mat-form-field fxFlex="100%">
+        <input matInput placeholder="Choose Session End Date & Time" [matDatepicker]="endDate"
+               formControlName="sessionEndDate" [min]="today">
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- Session Link -->
+    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+      <mat-form-field fxFlex="100%">
+        <input matInput placeholder="Session Link *" type="text" [maxlength]=500 formControlName="link">
+      </mat-form-field>
+    </div>
+
+    <!-- Youtube Link -->
+    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+      <mat-form-field fxFlex="100%">
+        <input matInput placeholder="Youtube Link" type="text" [maxlength]=500 formControlName="youtube">
+      </mat-form-field>
+    </div>
+
+    <!-- Full Description -->
+    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+      <mat-label>Full Description *</mat-label>
+      <div class="long-desc">
+        <angular-editor id="contentEditor" formControlName="fullDesc" [config]="editorConfig"></angular-editor>
+      </div>
+    </div>
+
+    <div align="right" style="margin-top:15px;">
+      <button mat-raised-button>Cancel</button>&nbsp;&nbsp;
+      <button mat-raised-button color="primary" [disabled]="frmAgenda.invalid || isFormSubmitted">Save</button>
+    </div>
+  </form>
+</div>

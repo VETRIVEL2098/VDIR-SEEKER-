@@ -1,0 +1,117 @@
+
+  /* Tab styling */
+  .nav-tabs {
+    margin-bottom: 15px;
+  }
+
+  .nav-tabs .nav-link {
+    color: #495057;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0;
+  }
+
+  .nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: var(--main-color); /* Change this to your main color */
+    border-color: var(--main-color);
+  }
+
+  /* Tab content styling */
+  .tab-content {
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 0 0 5px 5px;
+  }
+
+  /* Adjust styling for better visibility */
+  .nav-tabs .nav-link {
+    padding: 10px 15px;
+  }
+
+  /* Optionally, adjust styling for smaller screens */
+  @media (max-width: 576px) {
+    .nav-tabs .nav-link {
+      padding: 8px 12px;
+    }
+  }
+  .mat-tab-group {
+    height: calc(100% - 200px); /* Adjust the height as needed */
+  }
+  
+  .tab-content {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  /* Add this to your styles.css or the component's style file */
+.form-check-input {
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+.main {
+  margin-bottom: 50px;
+}
+
+.bg {
+  font-family: 'Barlow';
+} 
+
+ .eventLogo {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+} 
+
+.hoverable {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  height: 150px;
+  width: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+} */
+
+.hoverable .hover-text {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-size: 10px;
+} 
+
+ .hoverable .background {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 1;
+} 
+
+ .hoverable:hover .hover-text {
+  display: block;
+}
+
+.hoverable:hover .background {
+  display: block;
+}
+
+#fileInput{
+  display: none;
+}
+
+label {
+  margin-bottom: 30px;
+}
+.justify-content-end {
+  justify-content: flex-end!important;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+} 

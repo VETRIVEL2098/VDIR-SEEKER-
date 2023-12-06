@@ -1,0 +1,215 @@
+<div class="font">
+  <nav class="navbar navbar-expand-sm d-block" style="height: 110px;">
+    <div id="ui" class="container-fluid">
+      <div class="d-flex flex-column align-items-center mb-4">
+        <img id="ani3" src="assets/image/vdirectory-small-logo.png" alt="Logo" width="100" height="80" style="width: 140px;" class="d-inline-block align-text-top">
+        <div>
+          <!-- <a class="navbar-brand text-white fw-bolder fs-3" (click)="func0()" id="ani1">vDirectory</a> -->
+        </div>
+      </div>
+
+
+
+
+
+      <!-- <button class="navbar-toggler" type="button"  data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <div class="collapse navbar-collapse justify-content-end" style="align-items: baseline;" >
+        <ul class="navbar-nav">
+          <div class="d-flex  " >
+            <div style="display: flex;align-items:center;justify-content: end;">
+            <li class="nav-item">
+              <a class="nav-link active text-white mt-1 float-start" id="ani" aria-current="page" (click)="func11()">Jobs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white mt-1" id="ani" (click)="func13()">Companies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-white mt-1 float-start" id="ani" aria-current="page" (click)="func111()">Events</a>
+            </li>
+
+          </div>
+
+          <form [formGroup]="search">
+<div class="leftHeader ">
+
+          <div class="header ">
+            <div class="search-icon mt-3" (click)="toggleSearchDropdown()">
+              <i class="fas fa-search"></i>
+            </div>
+            <div class="search-dropdown" *ngIf="isSearchDropdownOpen">
+              <ul class="search-options">
+                <li>
+                  <ng-multiselect-dropdown
+                    [placeholder]="'Select the City'"
+                    [settings]="city"
+                    [data]="cityList"
+
+                    formControlName="city"
+                    class="multiSelect"
+                    (onFilterChange)="onItemSelect()"
+                  ></ng-multiselect-dropdown>
+                </li>
+                <li>
+                  <div class="form-group">
+                    <select class="form-control" id="domain" formControlName="domain" placeholder="Search In...">
+                      <option value="" disabled selected>Search In..</option>
+                      <option value="Jobs">Jobs</option>
+                      <option value="Companies">Companies</option>
+                      <option value="Product & Services">Product & Services</option>
+                    </select>
+                  </div>
+                </li>
+                <li>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="value"
+                      [(ngModel)]="searchValue"
+                      placeholder="Search Key.."
+                    />
+                    <div class="input-group-append">
+                      <button class="input-group-text" (click)="onItemSelect()">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+<div class="" >
+  <li class="container "  *ngIf="!isLoggedIn">
+    <a class="nav-link dropdown-toggle text-white mt-1 mt-3"   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Login
+    </a>
+    <ul class="container w-25 dropdown-menu dropdown-menu-end" style="width: 25%;" aria-labelledby="ani5">
+      <div tabindex="-1" class="">
+        <div class="mb-5 ms-5">
+          <div class=" mb-5 ms-5"></div>
+          <p class="fw-bolder">New to Seekers? Create an account to get started today.</p>
+          <div style="margin: 30px;">
+            <a id="ani"  (click)="func3(true, 'Seeker')"> <u> Sign As Job Seekers</u></a>
+          </div>
+          <div style="margin: 30px;">
+            <a id="ani"(click)="func4('Seeker')" ><u>Registered As Job Seekers</u></a>
+          </div>
+        </div>
+        <hr>
+        <div class="mb-5 ms-5">
+          <div class=" mb-5 ms-5"></div>
+          <p class="fw-bolder">Have an account Employers? Sign in now.</p>
+          <div style="margin: 30px;">
+            <a id="ani"  (click)="func3(false,'Company')"><u>Sign As Employer</u></a>
+          </div>
+          <div style="margin: 30px;">
+            <a id="ani" (click)="func4('Company')"><u>Registered As Employer</u></a>
+          </div>
+        </div>
+        <div class="mb-5 ms-5">
+          <div class=" mb-5 ms-5"></div>
+          <p class="fw-bolder">Have an Self-Employers? Sign in now.</p>
+          <div style="margin: 30px;">
+            <a id="ani"  (click)="func3(false,'selfEmployer')"><u>Sign As Self-Employer</u></a>
+          </div>
+          <div style="margin: 30px;">
+            <a id="ani" (click)="func4('selfEmployer')"><u>Registered As Self-Employer</u></a>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </li>
+
+</div>
+</div>
+</form>
+
+
+
+<div *ngIf="isLoggedIn" > <h1 style="float: right;" class="username mt-4">Welcome,{{jobSeekerName || employerName}}</h1></div>
+
+
+          <div style="margin-left: auto;">
+          <li class="nav-item dropdown me-5"  *ngIf="isLoggedIn" >
+
+            <a class="nav-link dropdown-toggle text-white mt-1"  id="ani5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="d-flex align-items-center"  *ngIf="isLoggedIn">
+                <div class="rounded-circle profile-image-container"
+                [ngStyle]="{ 'background-color':url || profile_pic || Company_logo ? 'transparent' : '#ccc', 'width': '50px', 'height': '50px', 'display': 'flex', 'justify-content': 'center', 'align-items': 'center' }">
+
+                  <img *ngIf="url || profile_pic || Company_logo" [src]="url ? url : profile_pic ? profile_pic : Company_logo ? Company_logo : ''" style="width: 50px; height: 50px" alt="User Image" class="rounded-circle profile-image" />
+                  <span *ngIf="!url && !profile_pic && !Company_logo" class="profile-initials">NP</span>
+                </div>
+              </div>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="seeker">
+              <li><a class="dropdown-item fs-6" (click)="func12()">Create Resume</a></li>
+              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="func22()">Applied Jobs</a></li>
+              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="func44()">Profile</a></li>
+              <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> </li>
+             </ul>
+             <ul class="dropdown-menu" aria-labelledby="ani5" *ngIf="admin">
+              <li><a class="dropdown-item fs-6" (click)="route1()">Home</a></li>
+              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route2()">My Profile</a></li>
+              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route3()">Jobs</a></li>
+              <li><a class="dropdown-item fs-6" *ngIf="isLoggedIn" (click)="route4()">Candidates</a></li>
+              <li ><a class="mt-2 fs-6 ms-3" (click)="signOut()" *ngIf="isLoggedIn">LogOut</a> </li>
+             </ul>
+          </li>
+
+        </div>
+      </div>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+</div>
+<!--101 <div class="navbar "  id="navbarNavDropdown"  style="height: 100px;margin-top: -20px;">
+            <div class="container-fluid mt-3 mb-3 d-flex w-100 align-items-center">
+              <form [formGroup]="search" class="mb-4">
+                <div class="row">
+                  <div class="col-md-4 mt-3">
+                    <ng-multiselect-dropdown
+                      [placeholder]="'Select the City'"
+                      [settings]="city"
+                      [data]="cityList"
+                      formControlName="city"
+                      class="text-white"
+                      (onFilterChange)="onItemSelect()"
+                    ></ng-multiselect-dropdown>
+                  </div>
+                  <div class="col-md-4 mt-3">
+                    <div class="form-group">
+                      <select class="form-control" id="domain" formControlName="domain" placeholder="Search In...">
+                        <option value="" disabled selected>Search In..</option>
+                        <option value="Jobs">Jobs</option>
+                        <option value="Companies">Companies</option>
+                        <option value="Product & Services">Product & Services</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mt-3">
+                    <div class="input-group" >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="value"
+                        [(ngModel)]="searchValue"
+                        placeholder="Search Key.."
+                      />
+                      <div class="input-group-append">
+                        <button class="input-group-text" (click)="onItemSelect()">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div> -->

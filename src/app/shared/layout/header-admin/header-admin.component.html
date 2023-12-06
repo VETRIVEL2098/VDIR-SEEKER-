@@ -1,0 +1,60 @@
+<div class="font">
+  <nav class="navbar navbar-expand-lg p-3" style="background-color:var(--main-color)">
+    <div id="ui" class="container-fluid">
+      <img id="ani3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPBNgdZmFsohHQuAoZKr0aYBXOsVEA5ArmiQ&usqp=CAU" alt="Logo" width="30" height="24" class="d-inline-block align-text-top me-3">
+      <a class="navbar-brand text-white fw-bolder fs-1" id="ani1">Seekers.com</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon bg-light"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active text-white" id="ani" aria-current="page">Job Listings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" id="ani">Employers</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white mt-1" href="#" id="ani5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Services
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="ani5">
+              <li><a class="dropdown-item fs-6">Create Job Post</a></li>
+              <li><a class="dropdown-item fs-6">Settings</a></li>
+              <li><a class="dropdown-item fs-6">Manage Applications</a></li>
+              <li><a class="dropdown-item fs-6"(click)="func3()" (click)="cl10(false)" (click)="signOut()" (click)="func3()"[hidden]="isLoggedOut">LogOut</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-Success" id="ani" (click)="func3()" (click)="cl9(false)" [hidden]="isLoggedIn">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-danger" id="ani" (click)="func4()" [hidden]="isLoggedIn">Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<style>
+  @media (max-width: 767px) {
+    .navbar-nav {
+      flex-direction: column;
+      margin-top: 10px;
+    }
+
+    .navbar-nav .nav-item {
+      margin-bottom: 10px;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .navbar-toggler {
+      margin-bottom: 10px;
+    }
+  }
+</style>

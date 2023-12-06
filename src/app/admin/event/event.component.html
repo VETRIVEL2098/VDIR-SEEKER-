@@ -1,0 +1,271 @@
+<style>
+  .search-bar {
+    position: relative;
+    width: 140px;
+    margin-left: 155%;
+  }
+  .custom-search {
+    margin-left: 50rem;
+    width: 150px;
+    margin-bottom: 50%;
+  }
+
+  .search-bar input[type="text"] {
+    padding-right: 36px;
+  }
+</style>
+
+<div class="row mb-3 d-flex justify-content-end">
+  <div class="col-md-6">
+    <button
+      class="btn btn-danger"
+      type="button"
+      class="btn btn-danger float-end mt-2"
+      style="background-color: var(--main-color)"
+      (click)="my(); this.flag = false"
+    >
+      ADD
+    </button>
+  </div>
+</div>
+
+<div style="width: 95%; float: right">
+  <ag-grid-angular
+    #agGrid
+    style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
+    class="ag-theme-alpine"
+    [defaultColDef]="defaultColDef"
+    [columnDefs]="fields"
+    [rowData]="companies"
+    (gridReady)="onGridReady($event)"
+    (firstDataRendered)="onFirstDataRendered($event)"
+    (selectionChanged)="onSelect($event); button = true"
+    [components]="frameworkComponents"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [context]="context"
+  ></ag-grid-angular>
+</div>
+
+<!-- ******************************************************************************************************************************** -->
+<div
+  class="modal fade"
+  id="companyModal"
+  tabindex="-1"
+  aria-labelledby="companyModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="companyModalLabel">Event List</h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          (click)="emptyvalue(); endval = 1; startval = 0 ;button = false; "
+          aria-label="Close"
+        ></button>
+      </div>
+
+
+
+      <div class="modal-body">
+        <form [formGroup]="formgrp">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p>Event Name :</p>
+              <!-- [(ngModel)]="title" -->
+              <input type="text" class="form-control" formControlName="eventName" />
+            </div>
+            <div>
+                <span>Short Description</span>
+                <input type="text" class="form-control" formControlName="Description" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p>Start Date :</p>
+                <!-- [(ngModel)]="title" -->
+                <input type="date" class="form-control" formControlName="startdate" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p>End Date :</p>
+                <!-- [(ngModel)]="title" -->
+                <input type="date" class="form-control" formControlName="enddate" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p>Time :</p>
+                <input type="time" class="form-control" formControlName="time1" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p>Duration:</p>
+                <input type="time" class="form-control" formControlName="duration" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p><span><input type="checkbox" class="form-check-input" formControlName="isRegisterMandatory" />
+                </span>Is Registeration Mandatory: </p>
+              </div>
+              <div class="col-12 col-md-6">
+                <p>Maximum of participants:</p>
+                <input
+                  type="number"
+                  min="1"
+                  class="form-control"
+                  formControlName="opening"
+    
+                />
+              </div>
+
+            <div class="col-12 col-md-6">
+              <p>Mode:</p>
+              <!-- [(ngModel)]="role" -->
+              <!-- <input type="text" class="form-control" [(ngModel)]="role" /> -->
+              <select
+                class="form-select"
+                formControlName="mode"
+                aria-label="Default select example"
+              >
+              <option value="" selected disabled>Select</option>
+              <option value="ON">ON</option>
+              <option value="OFF">OFF</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <p>Address:</p>
+            <!-- [(ngModel)]="title" -->
+            <input type="text" class="form-control" formControlName="address1" />
+          </div>
+
+
+          <div >
+            <!-- <div class="col-md-12">
+              <div class="map-container">
+                <location [Address]="" [Latlog]="mapdata" [Flag]="true"[Draggable]="true" (onClick)="click($event)"></location>
+                <button (click)="hideMap()" class="btn btn-danger">
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              </div>
+            </div> -->
+          </div>
+          
+          <div class="col-12 col-md-6" *ngIf="flag">
+            <p>Status:</p>
+            <select
+              class="form-select"
+              formControlName="status1"
+              aria-label="Default select example"
+            >
+              <option value="open">Open</option>
+              <option value="Close">Closed</option>
+            </select>
+          </div>
+          <mat-tab-group style="margin-top: 3%; height: calc(97% - 200px);">
+
+            <!-- Contacts Tab -->
+            <mat-tab label="Contacts">
+              <div class="row tab-content">
+                <div class="col-12 col-md-6">
+                  <p>Contact Name:</p>
+                  <input type="text" class="form-control" formControlName="contactName" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <p>Email:</p>
+                  <input type="text" class="form-control" formControlName="email" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <p>Phone:</p>
+                  <input type="text" class="form-control" formControlName="phoneNumber" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <p>Role:</p>
+                  <input type="text" class="form-control" formControlName="role" />
+                </div>
+              </div>
+            </mat-tab>
+          
+            <!-- Images Tab -->
+            <mat-tab label="Images">
+              <div class="row tab-content">
+                <div class="text-center mb-5">
+                  <div fxLayoutAlign="center center">
+                    <label class="hoverable" for="eventLogo">
+                      <img [src]="url ? url : ''">
+                      <div class="hover-text">Upload event logo</div>
+                      <div class="background"></div>
+                      <input id="eventLogo" type='file' style="display: none;" (change)="handleFileUpload('eventLogo','eventLogo')" (change)="onSelectFile($event,true)">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row tab-content">
+                <div class="text-center mb-5">
+                  <div fxLayoutAlign="center center">
+                    <label class="hoverable" for="eventBanner">
+                      <img [src]="url1 ? url1 : ''">
+                      <div class="hover-text">Upload event Banner</div>
+                      <div class="background"></div>
+                      <input id="eventBanner" type='file'style="display: none;" (change)="handleFileUpload('eventBanner','eventBanner')" (change)="onSelectFile($event,false)">
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+          
+            <!-- Full Description Tab -->
+            <mat-tab label="Full Description">
+              <div class="row tab-content">
+                <div class="col-md-10">
+                  <p>Full Description:</p>
+                  <textarea class="form-control" formControlName="fullDescription"></textarea>
+                </div>
+                <!-- Add more full description fields as needed -->
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+          
+          
+        </form>
+      
+
+      </div>
+      <div class="modal-footer d-flex justify-content-end">
+        <button
+          type="button"
+          class="btn btn-danger"
+          [disabled]="!this.formgrp.valid"
+          *ngIf="!button"
+          style="background-color:var(--main-color)"
+          (click)="
+            logFormValues();
+            endval = 1;
+            startval = 0
+          "
+          data-bs-dismiss="modal"
+        >
+          Save
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          *ngIf="button"
+          [disabled]="!this.formgrp.valid"
+          style="background-color:var(--main-color)"
+          (click)="updatevalue(); button = false"
+          data-bs-dismiss="modal"
+        >
+          Update
+        </button>
+        <button
+          type="button"
+          (click)="emptyvalue(); button = false;endval = 1; startval = 0"
+          class="btn btn-danger"
+          style="background-color:var(--main-color)"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+

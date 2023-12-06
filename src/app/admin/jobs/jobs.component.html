@@ -1,0 +1,307 @@
+<style>
+  .search-bar {
+    position: relative;
+    width: 140px;
+    margin-left: 155%;
+  }
+  .custom-search {
+    margin-left: 50rem;
+    width: 150px;
+    margin-bottom: 50%;
+  }
+
+  .search-bar input[type="text"] {
+    padding-right: 36px;
+  }
+</style>
+
+<div class="row mb-3 d-flex justify-content-end">
+  <div class="col-md-6">
+    <button
+      class="btn btn-danger"
+      type="button"
+      class="btn btn-danger float-end mt-2"
+      style="background-color: var(--main-color)"
+      data-bs-toggle="modal"
+      data-bs-target="#companyModal"
+      (click)="my(); this.flag = false"
+    >
+      Post a Job
+    </button>
+  </div>
+</div>
+
+<div style="width: 95%; float: right">
+  <ag-grid-angular
+    #agGrid
+    style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
+    class="ag-theme-alpine"
+    [defaultColDef]="defaultColDef"
+    [columnDefs]="fields"
+    [rowData]="companies"
+    (gridReady)="onGridReady($event)"
+    (firstDataRendered)="onFirstDataRendered($event)"
+    (selectionChanged)="onSelect($event); button = true"
+    [components]="frameworkComponents"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [context]="context"
+  ></ag-grid-angular>
+</div>
+
+<!-- ******************************************************************************************************************************** -->
+<div
+  class="modal fade"
+  id="companyModal"
+  tabindex="-1"
+  aria-labelledby="companyModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="companyModalLabel">Post a new Job</h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          (click)="emptyvalue(); endval = 1; startval = 0 ;button = false; "
+          aria-label="Close"
+        ></button>
+      </div>
+
+
+
+      <div class="modal-body">
+        <form [formGroup]="formgrp">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p>Job Title :</p>
+              <!-- [(ngModel)]="title" -->
+              <input type="text" class="form-control" formControlName="title" />
+            </div>
+
+            <div class="col-12 col-md-6">
+              <p>Role:</p>
+              <!-- [(ngModel)]="role" -->
+              <!-- <input type="text" class="form-control" [(ngModel)]="role" /> -->
+              <select
+                class="form-select"
+                formControlName="role"
+                aria-label="Default select example"
+              >
+                <option value="" disabled selected>Select Role</option>
+                <option
+                  value="{{ val.category }}"
+                  *ngFor="let val of rolerange"
+                >
+                  {{ val.category }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p>Salary:</p>
+
+              <select
+                class="form-select"
+                formControlName="salary"
+                aria-label="Default select example"
+              >
+                <option value="" disabled selected>Salary Range</option>
+                <option
+                  value="{{ val.range }}"
+                  *ngFor="let val of sarlaryrange"
+                >
+                  {{ val.range }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <p>Employment Type:</p>
+              <select
+                class="form-select"
+                formControlName="employmentType"
+                aria-label="Default select example"
+              >
+                <option value="" disabled selected>select any thing</option>
+                <option value="INTERN">INTERN</option>
+                <option value="Part Time">Part Time</option>
+                <option value="Full Time">Full Time</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p>Job Post Validity Up To:</p>
+
+              <select
+
+                class="form-select"
+                formControlName="validity"
+                aria-label="Default select example"
+                style="color: black;"
+                (click)="validityFlag=true"
+              >
+                <option  value="" (click)="validityFlag=true" disabled selected>select any thing</option>
+                <option value="30" (click)="validityFlag=true">30 days</option>
+                <option value="60" (click)="validityFlag=true">60 days</option>
+              </select>
+              <div *ngIf="formgrp.get('validity')?.invalid && formgrp.get('validity')?.touched" style="color: red;">
+                Validity is required.
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <p>Education</p>
+              <ng-multiselect-dropdown
+                [settings]="dropdownSettings"
+                formControlName="Education"
+                [data]="dropdownList"
+              >
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+
+          <div class="row">
+            <div
+              class="col-12 col-md-6"
+              *ngIf="this.value.is_branch_available == 'true'"
+            >
+              <p>Location:</p>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="Location"
+              />
+            </div>
+
+            <div class="col-12 col-md-6">
+              <p style="margin-bottom: 30px">Experience:</p>
+              <mat-slider
+                min="0"
+                max="30"
+                step="0.5"
+                showTickMarks
+                aria-label="Experience"
+                discrete="true"
+              >
+                <input
+                  matSliderStartThumb
+                  [(ngModel)]="startval"
+                  #sliderstartval
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <input
+                  matSliderEndThumb
+                  [(ngModel)]="endval"
+                  #sliderendval
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </mat-slider>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <p>Work Mode:</p>
+
+              <select
+                class="form-select"
+                formControlName="workmode"
+                id="workmode"
+              >
+                <option value="" selected disabled>Select</option>
+                <option value="Work From Office">Work From Office</option>
+                <option value="Remote">Remote</option>
+                <option value="Full Time">Hybrid</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <p>Job Opening Count:</p>
+            <input
+              type="number"
+              min="1"
+              class="form-control"
+              formControlName="opening"
+
+            />
+          </div>
+          <div class="col-12 col-md-6" *ngIf="flag">
+            <p>Status:</p>
+            <select
+              class="form-select"
+              formControlName="status"
+              aria-label="Default select example"
+            >
+              <option value="open">Open</option>
+              <option value="Close">Closed</option>
+            </select>
+          </div>
+          <div>
+            <span>Description</span>
+            <angular-editor
+              formControlName="Description"
+              [config]="editorConfig"
+            ></angular-editor>
+          </div>
+          <div>
+            <span>Requirements</span>
+            <angular-editor
+              formControlName="Requirements"
+              [config]="editorConfig"
+            ></angular-editor>
+          </div>
+          <div>
+            <span>Skill</span>
+            <angular-editor
+              formControlName="Skill"
+              [config]="editorConfig"
+            ></angular-editor>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-end">
+        <button
+          type="button"
+          class="btn btn-danger"
+          [disabled]="!this.formgrp.valid"
+          *ngIf="!button"
+          style="background-color:var(--main-color)"
+          (click)="
+            logFormValues(sliderstartval.value, sliderendval.value);
+            endval = 1;
+            startval = 0
+          "
+          data-bs-dismiss="modal"
+        >
+          Post
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          *ngIf="button"
+          [disabled]="!this.formgrp.valid"
+          style="background-color:var(--main-color)"
+          (click)="updatevalue(sliderstartval.value, sliderendval.value); button = false"
+          data-bs-dismiss="modal"
+        >
+          Update
+        </button>
+        <button
+          type="button"
+          (click)="emptyvalue(); button = false;endval = 1; startval = 0"
+          class="btn btn-danger"
+          style="background-color:var(--main-color)"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

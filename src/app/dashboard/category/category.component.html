@@ -1,0 +1,224 @@
+<app-header (onClick)="click($event)"></app-header>
+<div style="margin-top: 20px;">
+
+  <span (click)="routeback()"><mat-icon>arrow_back</mat-icon></span>
+</div>
+<div *ngIf="companyData&&companyData.unique_id" style="height: 300px;width: 95%;">
+  <app-image [CompanyID]='companyData' [height]="300" [width]="95"></app-image>
+</div>
+<br>
+<div *ngIf="companyflag">
+
+    <mat-tab-group style="margin-top: 100px;">
+        <mat-tab label="Company Info" >
+          <div class="card">
+            <div class="card-body">
+              <p *ngIf="companyData.company_type != ''"><strong>Company Type:</strong> {{ companyData.company_type }}</p>
+              <p *ngIf="companyData.Company_Register_Type != ''"><strong>Corporate Registed Number:</strong> {{ companyData.Company_Register_Type }}</p>
+              <p *ngIf="companyData.estd_date != ''"><strong>Company Start At:</strong> {{ companyData.estd_date }}</p>
+              <p *ngIf="companyData.is_branch_available"><strong>Multi Brach Available:</strong> {{ companyData.is_branch_available ? "yes" : "no" }}</p>
+              <!-- <p *ngIf="companyData.email != ''"><strong>Company Email ID:</strong> {{ companyData.email }}</p>
+              <p *ngIf="companyData.website != ''"><strong>Company WebSite:</strong> <a [href]='companyData.website' >{{companyData.CompanyName}}</a></p>
+              <p *ngIf="companyData.phone != '' "><strong>Company Moblie Number:</strong>{{companyData.phone}}</p>
+               -->
+          <p *ngIf="companyData?.email != ''"><span><mat-icon style="height: 20px;"> email</mat-icon><span style="padding: 10px;">Email : {{companyData?.email}}</span></span></p>
+          <p *ngIf="companyData?.website != ''"><span>Website :<a [href]="companyData?.Website">WebSite link of {{companyData?.CompanyName}}</a></span></p>
+          <p *ngIf="companyData?.emp_count != ''"><span><mat-icon style="height: 20px;">group</mat-icon>   <span style="padding: 10px;">Employee : {{companyData?.emp_count}}</span></span></p>
+          <p *ngIf="companyData?.phone != '' "><span><mat-icon style="height: 20px;"> call</mat-icon><span style="padding: 10px;">Mobile Number : {{companyData?.phone}}</span></span>
+          </p>
+          <div style="width: 50%; display: flex; flex-direction: column;">
+            <div style="flex-grow: 1;">
+              <location [Address]="companyData.area + ', ' + companyData.districtname + ', ' + companyData.statename + ', ' + companyData.pincode" [Flag]="false" [Draggable]="false" [Latlog]="companyData.coordinate"></location>
+            </div>
+          </div>
+            </div>
+          </div>
+
+
+
+        </mat-tab>
+        <mat-tab label="About us">
+          <div style="display: flex;margin-bottom: 50px;">
+            <div class="card" style="margin-top: 60px; margin-right: 2%; display: flex; flex-direction: column;">
+              <div class="card-body" style="overflow-y: scroll; flex-grow: 1;">
+                <h1>About Us</h1>
+                <p [innerHTML]="companyData?.company_description"></p>
+              </div>
+            </div>
+
+          </div>
+        </mat-tab>
+        <mat-tab label="Posted JOB Info">
+          <div style="margin-left: 10%;">
+            <div style="width: 100%; height: 100vh; overflow-y: scroll;">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="card border-light mb-3" *ngFor="let job of search_details">
+                    <div class="card-body" (click)="my(job)">
+                      <h2 class="card-title">Company Name: {{ job.companyName }}</h2>
+                      <h2 class="card-title">Job Title: {{ job.title }}</h2>
+                      <h3 class="card-subtitle">Job Role: {{ job.role }}</h3>
+                      <h3 class="card-subtitle">Employment Type: {{ job.employmentType }}</h3>
+                      <ul class="list-unstyled">
+                        Qualifications:
+                        <li *ngFor="let value of job.Education">{{ value.education }}</li>
+                      </ul>
+                      <h4 class="card-text">{{ job.description }}</h4>
+                      <ul class="list-unstyled">
+                        <li class="mt-3">
+                          <i class="fas fa-map-marker-alt" style="color:var(--main-color)"></i> Location: {{ job.Location }}
+                        </li>
+                        <li>
+                          <i class="fas fa-money-bill mt-3" style="color:var(--main-color)"></i> Salary: {{ job.salary }}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Products & Services ">
+
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+
+      <div *ngIf="jobflag">
+
+
+        <div class="card">
+          <div class="card-body">
+
+            <p *ngIf="companyData.company_type != ''"><strong>Company Type:</strong> {{ companyData.company_type }}</p>
+            <p *ngIf="companyData.Company_Register_Type != ''"><strong>Corporate Registed Number:</strong> {{ companyData.Company_Register_Type }}</p>
+            <p *ngIf="companyData.estd_date != ''"><strong>Company Start At:</strong> {{ companyData.estd_date }}</p>
+            <p *ngIf="companyData.is_branch_available"><strong>Multi Brach Available:</strong> {{ companyData.is_branch_available ? "yes" : "no" }}</p>
+            <!-- <p *ngIf="companyData.email != ''"><strong>Company Email ID:</strong> {{ companyData.email }}</p>
+            <p *ngIf="companyData.website != ''"><strong>Company WebSite:</strong> <a [href]='companyData.website' >{{companyData.CompanyName}}</a></p>
+            <p *ngIf="companyData.phone != '' "><strong>Company Moblie Number:</strong>{{companyData.phone}}</p>
+             -->
+        <p *ngIf="companyData?.email != ''"><span><mat-icon style="height: 20px;"> email</mat-icon><span style="padding: 10px;">Email : {{companyData?.email}}</span></span></p>
+        <p *ngIf="companyData?.website != ''"><span>Website :<a [href]="companyData?.Website">WebSite link of {{companyData?.CompanyName}}</a></span></p>
+        <p *ngIf="companyData?.emp_count != ''"><span><mat-icon style="height: 20px;">group</mat-icon>   <span style="padding: 10px;">Employee : {{companyData?.emp_count}}</span></span></p>
+        <p *ngIf="companyData?.phone != '' "><span><mat-icon style="height: 20px;"> call</mat-icon><span style="padding: 10px;">Mobile Number : {{companyData?.phone}}</span></span>
+        </p>
+        <div style="width: 80%; display: flex; flex-direction: column;" >
+          <div style="flex-grow: 1;">
+
+            <location [Address]="companyData.area + ', ' + companyData.districtname + ', ' + companyData.statename + ', ' + companyData.pincode" [Flag]="false" [Draggable]="false" [Latlog]="latlong"></location>
+          </div>
+        </div>
+      </div>
+
+        </div>
+        <div class="row vh-80">
+          <div class="col-md-11">
+            <div class="card border-light mb-3">
+              <div class="card-body">
+                <ul class="card-list">
+                  <div style="margin-top: 20px;">
+
+                    <!-- <span (click)="routeback1(true)"><mat-icon style="height: 20px">arrow_back</mat-icon></span>
+
+                    <span (click)="routeback1(false,job?.refid)" style="float: right;"><mat-icon>pageview</mat-icon>
+                    </span> -->
+                  </div>
+
+
+
+                  <div class="d-flex align-items-center mb-3 justify-content-center">
+                    <!-- <img id="ani3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaogV9s6SIu9MDy_nXP5cwNNwk_y6vPrfNGA&usqp=CAU" alt="Logo" width="50" height="50" class="d-inline-block img-fluid"> -->
+                    <!-- <h1 class="card-subtitle text-center fs-2 mb-5 mt-5 text-break">{{ job?.companyName }}</h1> -->
+                  </div>
+                  <!-- <i class="fas fa-star mb-3"></i> Rating: {{ job.rating }} -->
+                  <!-- <li class="card-title">Title: {{ job.title }}<li> -->
+
+                  <h1 class="card-title text-center"><strong>{{ job?.title }}</strong> </h1>
+
+                  <!-- <h4 class="card-text" [innerHTML]=" job.Description "></h4> -->
+
+                  <ul class="list-unstyled" *ngIf="job?.role!=''">
+                    <li class="card-title"><strong style="font-size: large;">Role:</strong> {{ job?.role }}</li>
+
+                    <li class="mt-4 mb-4" *ngIf="job?.salary!=''">
+                      <i class="fas fa-money-bill me-2"></i> <strong style="font-size: large;">Salary:</strong> {{ job?.salary }}
+                    </li>
+                    <li class="mt-4 mb-4" *ngIf="job?.Location!=''">
+                      <i class="fas fa-map-marker-alt me-2"></i> <strong style="font-size: large;">Location:</strong>  {{ job?.Location }}
+                    </li>
+                  </ul>
+                  <li class="mt-4 mb-4" *ngIf="job?.Description!=''" ><strong style="font-size: large;">Description:</strong>
+                  <p [innerHTML]="job?.Description"></p>
+                  </li>
+                  <li class="mt-4 mb-4" *ngIf="job?.Requirements!=''"><strong style="font-size: large;">Requirements:</strong>
+
+                    <p [innerHTML]="job?.Requirements"></p>
+
+                  </li>
+                  <li class="mt-4 mb-4" *ngIf="job?.Education!=''"><strong style="font-size: large;">Education:</strong>
+                    <ul >
+                      <li *ngFor="let skill of job?.Education">{{ skill?.education }}</li>
+                    </ul>
+                  </li>
+                  <!-- <li class="mb-3"><strong>Department:</strong> {{ job.department }}</li> -->
+                  <li class="mt-4 mb-4"><strong  style="font-size: large;">Employment Type:</strong > {{ job?.employmentType }}</li>
+                  <li class="mt-4 mb-4" *ngIf="job?.Skill!=''">
+                    <strong  style="font-size: large;">Key Skills:</strong>
+                    <p [innerHTML]="job?.Skill"></p>
+                  </li>
+                  <li class="mt-4 mb-4" *ngIf="job?.industryType!=''"><strong  style="font-size: large;" >Industry Type:</strong> {{ job?.industryType }}</li>
+                </ul>
+                <div *ngIf="loggedInBy" style="margin: 10px;" >
+
+<div >
+  <button class="fnt btn btn-danger mx-auto m-5" style="background-color: var(--main-color); margin: 10px;" *ngIf="isLoggedIn && button" id="buttom" (click)="applyJob();">Apply now</button>
+
+  <button class="fnt btn btn-danger" style="background-color: var(--main-color);  margin: 10px;"  *ngIf="!isLoggedIn" (click)="login(false)">Login</button>
+
+  <button class="fnt btn btn-danger" style="background-color: var(--main-color);   margin-left: 10px;" *ngIf="!isLoggedIn" (click)="login(true)">Register</button>
+</div>
+
+
+                </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="industryFlag">
+        <div class="container d-flex justify-content-center">
+          <!-- <form class="d-flex justify-content-center mt-5 mb-5" [formGroup]="zoro2" role="search">
+            <input type="text" class="form-control form-control-sm" formControlName="searchQuery" name="searchQuery" placeholder="Search" style="width: 400px;">
+            <button class="btn btn-dark"  style="background-color:var(--main-color)" (click)="search1()" type="submit">Search</button>
+            <button class="btn btn-dark"  style="background-color:var(--main-color)" type="button">
+              <i class="fas fa-filter"></i>
+            </button>
+          </form> -->
+         <div class="card-body " (click)="my1(company)" style="background-image: url({{company.Company_banner}});background-position: center; background-repeat: no-repeat;background-size: cover; object-fit: contain; width: 800px; height: 300px;">
+
+  <div class="text-center" style="float: left;margin-top: 10vh;" >
+    <img *ngIf="company.Company_logo" src="{{ company.Company_logo }}" alt="Company Logo" style="width: 100px; height: 100px;background-color:var(--main-color)">
+  </div>
+  <div class="card" style="opacity: 0.7;  justify-content: end;width: 200px;float: right;">
+    <div class="card-body">
+      <div style="display: flex; flex-direction: column; align-items: flex-end;">
+        <div style="font-size: 24px; font-weight: bold;">{{company.CompanyName}}</div>
+        <h3 class="card-subtitle text-center">{{ company.industry }}</h3>
+        <h4 class="card-text text-center">{{ company.description }}</h4>
+        <div style="font-size: 16px; color: black;">
+        <i class="fas fa-map-marker-alt"  style="color:var(--main-color)"></i>
+          {{company.street}} {{company.area}} {{company.statename}} {{company.pincode}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+        </div>
+      </div>
+
+<app-footer></app-footer>

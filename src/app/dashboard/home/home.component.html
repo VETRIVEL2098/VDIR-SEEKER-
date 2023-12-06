@@ -1,0 +1,176 @@
+
+ <div class="header-container text-center mt-3">
+  <h1 class="title  fs-2 " id="hh">Find your dream job now</h1>
+  <div class="Line fs-6">5 lakh+ jobs for you to explore</div>
+
+ <div class="container-fluid  " >
+<div class="container col-10 " style="display: flex;justify-content: center;">
+
+  <div
+    id="carouselExampleIndicators"
+    class="carousel slide "
+    data-bs-ride="carousel"
+    style="width: 70%;"
+  >
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="3"
+        aria-label="Slide 4"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="4"
+        aria-label="Slide 5"
+      ></button>
+    </div>
+
+
+    <div class="carousel-inner mt-5">
+      <div class="carousel-item active">
+        <img
+          src="https://media.istockphoto.com/id/1221010770/photo/employee-lost-a-job-during-the-covid-19-crisis.jpg?s=612x612&w=0&k=20&c=Np7SwZsn-PgSbZAS-wilUCxEYNd-n8ubWA3hwW5ued8="
+          class="d-block img-fluid"
+          alt="img"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="https://media.istockphoto.com/id/1407182786/photo/coworkers-greeting-and-doing-a-handshake-at-work.jpg?b=1&s=170667a&w=0&k=20&c=eeymqUeIp57H3ECylA11o4aXMurVoTjROQhmbXGHRQE="
+          class="d-block img-fluid"
+          alt="img"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="https://media.istockphoto.com/id/1045876492/photo/signing-a-contract.jpg?s=612x612&w=0&k=20&c=XO7Jr4UkBunpLox_e8PXSo0Fcr3T8EhwMDJ8mRsSGCA="
+          class="d-block img-fluid"
+          alt="img"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="https://media.istockphoto.com/id/866302266/photo/young-woman-working-from-home.jpg?s=612x612&w=0&k=20&c=WcemVbAhYT9BPUaYvt5GhvZ8PErTxk5zHQ1BDfKN0ec="
+          class="d-block img-fluid"
+          alt="img"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="https://media.istockphoto.com/id/1394701218/photo/job-search-concept-find-your-career-woman-looking-at-online-website-by-laptop-computer-people.jpg?b=1&s=170667a&w=0&k=20&c=ZFS0x2s-WrF__GiGEognB4ao-YUI68w3OKMaLGQy3PY="
+          class="d-block img-fluid"
+          alt="img"
+        />
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+</div>
+
+
+  <div class="container-fluid mt-5 mb-5">
+    <div id="carouselExample" class="carousel white-slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row">
+            <div class="col-md-3" *ngFor="let dataPoint of columnDataList[0]">
+              <div class="card mt-2 mb-2" style="border-radius: 90px;">
+                <div class="card-body "  (click)="NavigateIndustry(dataPoint.category)">
+                  <span class="bullet"></span>
+                  {{ dataPoint.category }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col-md-3" *ngFor="let dataPoint of columnDataList[1]">
+              <div class="card mt-2 mb-2" style="border-radius: 90px;">
+                <div class="card-body" (click)="NavigateIndustry(dataPoint.category)">
+                  <span class="bullet"></span>
+                  {{ dataPoint.category }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon text-bg-dark" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon text-bg-dark" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!-- <button class="btn btn-primary mt-3 float-end" (click)="loadMore()">View More</button> -->
+  </div>
+
+
+ <div class="d-flex justify-content-center fs-4 ">
+  <h1 style="font-weight: bold">Top Companies Hiring...</h1>
+ </div>
+
+ <div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-3" *ngFor="let dataPoint of firstFiveItems">
+      <div class="card text-center">
+        <img src="{{ dataPoint.Company_logo }}" class="card-img-top mx-auto mt-3" alt="Company Logo" style="width: 100px; height: 100px; border-radius: 30px;">
+        <div class="card-body">
+          <h5 class="card-title">{{ dataPoint.CompanyName }}</h5>
+          <div class="mb-3 d-flex justify-content-center">
+            <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+<div style="color: rgb(182, 182, 182);margin-left: 4px;">|</div>
+          <p style="font-size: 10px;" class="card-text ms-2 ">Employee Count: {{ dataPoint.emp_count }}</p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

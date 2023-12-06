@@ -1,0 +1,112 @@
+<div style="position: relative; width: 100%; overflow: hidden;">
+    <div style="background-image: url({{data?.eventBanner}}); background-size: cover; background-position: center center; height: 200px; width: 100%; position: relative;">
+        <div style="position: absolute; top: 30%; left: 50%; color: rgb(255, 254, 254); font-size: 26px; transform: translate(-50%, -50%); text-align: center;">
+            <p style="background-color: rgba(31, 29, 29, 0.8);width: max-content; font-weight: bold;margin-top: 80px; font-size: 41px; padding: 30px 60px; border-radius: 5px; display: inline-block;"> {{ data?.eventName }}</p>
+        </div>
+        <div style="position: absolute; bottom: 0px; right: 0px;">
+            <button class="btn btn-secondary" (click)="routeFunction()"><mat-icon>edit</mat-icon></button>
+        </div>
+    </div>
+</div>
+
+<div style="position: absolute; font-size: 17px; font-weight: bold; margin-top: -32px; width: 75%; left: 50%; transform: translateX(-50%); height: 69px; border-radius: 6px; background-color: rgb(205 117 16); padding: 20px; color: #fcfafa; display: flex; justify-content: space-between; max-width: 100%;">
+
+    <div style="display: flex; align-items: center;">
+        <i class="fas fa-calendar" style="font-size: 24px; margin-bottom: 8px; margin-right: 8px;"></i>
+        <p style="margin-bottom: 0;">Date<br> {{ data?.startdate }}</p>
+    </div>
+    
+    <div style="display: flex; align-items: center;">
+        <i class="fas fa-map-marker-alt" style="font-size: 24px; margin-bottom: 8px; margin-right: 8px;"></i>
+        <p style="margin-bottom: 0;">Venue<br>{{ data?.address1 }}</p>
+    </div>
+    
+    <div style="display: flex; align-items: center;">
+        <i class="fas fa-clock" style="font-size: 24px; margin-bottom: 8px; margin-right: 8px;"></i>
+        <p style="margin-bottom: 0;">Time<br>{{ data?.time1 }}</p>
+    </div>
+
+    <div style="display: flex; align-items: center;">
+        <mat-icon style="font-size: 24px; margin-right: 8px;">hourglass_bottom</mat-icon>
+        <p style="margin-bottom: 0;">Duration<br>{{ data?.duration }} hrs</p>
+    </div>
+
+</div>
+
+  <div class="loc" style="display: flex; justify-content: center; position: relative; width: 100%; overflow: hidden;">
+    <div style="flex: 0 0 35%; box-sizing: border-box; padding: 20px; background-color: rgba(250, 247, 247, 0.8); border-radius: 10px; height: 300px; overflow: hidden;">
+        <h3 style="color:rgb(255 136 0) ;font-size: medium; font-weight: bold;">About the Event</h3>
+        <p  style="overflow: auto; max-height: 240px;" [innerHTML]="data?.fullDescription"></p>
+    </div>
+    <div style="flex: 0 0 30%; box-sizing: border-box; padding: 20px;color: #fcfafa; background-color: rgba(27, 26, 26, 0.8); border-radius: 10px;">
+        <h3>Location Map</h3>
+    </div>
+</div>
+
+  <div class="loc" style="display: flex; justify-content: center; position: relative; width: 100%; overflow: hidden;">
+    <div style="flex: 0 0 35%; box-sizing: border-box; padding: 20px; background-color: rgba(253, 251, 251, 0.8); border-radius: 10px;">
+      <h3 style="color:rgb(255 136 0) ;font-size: medium; font-weight: bold;">Agenda</h3>
+      <p style="overflow: auto; max-height: 240px;">
+        A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs...
+    </p>
+    </div>
+    <div style="flex: 0 0 30%; box-sizing: border-box; padding: 20px; background-color: rgba(31, 29, 29, 0.8); border-radius: 10px; position: relative; overflow: hidden;">
+        <div style="background-image: url('/assets/image/marker3.png'); background-size: cover; background-position: center center; height: 300px; margin-top: 10px; width: 100%; position: relative;">
+            <div style="position: absolute; top: 30%; left: 50%; font-weight: bold; color: white; font-size: 26px; transform: translate(-50%, -50%); text-align: center;">
+                <p>JOIN OUR PROGRAM</p><br>
+                <p style="font-size: medium; width: max-content;">Register now to book your slot. Limited seats available</p>
+            </div>
+            <div style="position: absolute; bottom: 10%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                <button style="background-color: rgb(202, 110, 5);color: #fcfafa;font-size: medium; padding: 10px 60px; border-radius: 5px;">Register Now</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="loc" style="display: flex; justify-content: center; position: relative; width: 100%; overflow: hidden;">
+    <div style="flex: 0 0 65%;font-size: medium; font-weight: bold; margin-left: 16px; box-sizing: border-box; padding: 20px;color:rgb(255 136 0) ; background-color: rgba(250, 247, 247, 0.8); border-radius: 10px;">
+        <p>OUR SPEAKERS</p>
+    </div>
+  </div>
+<div class="loc" style="display: flex; left: 50%; transform: translateX(-50%); justify-content: space-between; position: relative; width: 63%;   overflow: hidden;">
+    <div style="flex: 0 0 23%; box-sizing: border-box; padding: 20px;background-color: rgba(31, 29, 29, 0.8); border-radius: 10px; margin-left: 10px; height: 300px; position: relative; overflow: hidden;">
+    <div style="text-align: center; margin-top: 50px;">
+        <img src="/assets/image/vdirectory-small-logo.png" style="width: 50%; max-height: 150px; object-fit: cover; border-radius: 50%;">
+        <div style="position: absolute; bottom: 0; left: 0; width: 100%; color: white;">
+            <p>Jeff Bezos</p>
+            <p>Amazon</p>
+        </div>
+    </div>
+</div>
+
+<div style="flex: 0 0 23%; box-sizing: border-box; padding: 20px;background-color: rgba(31, 29, 29, 0.8); border-radius: 10px; margin-left: 10px; height: 300px; position: relative; overflow: hidden;">
+    <div style="text-align: center; margin-top: 50px;">
+        <img src="/assets/image/vdirectory-small-logo.png" style="width: 50%; max-height: 150px; object-fit: cover; border-radius: 50%;">
+        <div style="position: absolute; bottom: 0; left: 0; width: 100%; color: white;">
+            <p>Ratan Tata</p>
+            <p>TATA</p>
+        </div>
+    </div>
+</div>
+<div style="flex: 0 0 23%; box-sizing: border-box; padding: 20px;background-color:  rgba(31, 29, 29, 0.8); border-radius: 10px; margin-left: 10px; height: 300px; position: relative; overflow: hidden;">
+    <div style="text-align: center; margin-top: 50px;">
+        <img src="/assets/image/vdirectory-small-logo.png" style="width: 50%; max-height: 150px; object-fit: cover; border-radius: 50%;">
+        <div style="position: absolute; bottom: 0; left: 0; width: 100%; color: white;">
+            <p>Ambani</p>
+            <p>Reliance</p>
+        </div>
+    </div>
+</div>
+<div style="flex: 0 0 23%; box-sizing: border-box; padding: 20px;background-color: rgba(31, 29, 29, 0.8); border-radius: 10px; margin-left: 10px; height: 300px; position: relative; overflow: hidden;">
+    <div style="text-align: center; margin-top: 50px;">
+        <img src="/assets/image/vdirectory-small-logo.png" style="width: 50%; max-height: 150px; object-fit: cover; border-radius: 50%;">
+        <div style="position: absolute; bottom: 0; left: 0; width: 100%; color: white;">
+            <p>Bill Gates</p>
+            <p>Microsoft</p>
+        </div>
+    </div>
+</div>
+  </div>
+  <div class="footers">
+  <app-footer-event></app-footer-event>
+</div>
+  

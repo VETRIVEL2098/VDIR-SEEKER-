@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap');
+
+
+#inp:focus {
+  border-color: rgba(117, 17, 17, 0.8);
+  box-shadow: 0 1px 1px rgba(132, 23, 23, 0.075) inset, 0 0 8px rgba(112, 14, 14, 0.6);
+  outline: 0 none;
+}
+input[type="checkbox"]:focus {
+  border-color: rgba(22, 25, 21, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(117, 17, 17, 0.8);
+  outline: 0 none;
+
+}
+
+.container button div,p,ul,li,h4,h5,h3,h2,h1{
+  font-family: 'Fredoka', sans-serif;
+}
+.fnt{
+  font-family: 'Fredoka', sans-serif;
+}
+.modal-body{
+  font-family: 'Fredoka', sans-serif;
+
+}
+.card:hover{
+  cursor: pointer;
+}
+
+.card-body {
+
+  top: 0px;
+  position: relative;
+
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 32px 24px;
+  margin: 12px;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  border: 1px solid #ffffff;
+}
+
+.card-body:hover {
+  transition: all 0.2s ease-out;
+  box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+  top: -4px;
+  border: 1px solid #ffffff;
+  background-color: white;
+}
+
+.card-body:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -16px;
+  right: -16px;
+  background:var(--main-color);
+  height: 32px;
+  width: 32px;
+  border-radius: 32px;
+  transform: scale(2);
+  transform-origin: 50% 50%;
+  transition: transform 0.15s ease-out;
+}
+
+.card-body:hover:before {
+  transform: scale(2.15);
+}
+
+.asd{
+  margin-left: 30%;
+}
+.mat-icon {
+  /* -webkit-user-select: none; */
+  user-select: none;
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  height: 35px;
+  width: 35px;
+  margin-left: 20px;
+  overflow:visible;
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 34px;
+  line-height: 1;
+  /* letter-spacing: normal; */
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}

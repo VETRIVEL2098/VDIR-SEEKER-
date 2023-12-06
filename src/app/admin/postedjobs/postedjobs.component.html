@@ -1,0 +1,106 @@
+<div style="display: flex; justify-content: space-between;
+align-items: center; padding: 10px; background-color: #f0f0f0;
+height: 200px;width: 100%;
+ background-image: url({{data?.Company_banner}});
+  background-size: cover; background-position: center center; color: #ffffff;">
+    <img style="width: 100px; height: 100px; margin-right: 20px;" src={{data?.Company_logo}}
+      alt="Company Logo">
+
+    <div class="card" style="opacity: 0.8;">
+      <div class="card-body">
+        <div style="display: flex; flex-direction: column; align-items: flex-end;">
+          <div style="font-size: 24px; font-weight: bold;">{{data?.CompanyName}}</div>
+          <div style="font-size: 16px; color:black;">{{data?.street + data?.area + data?.statename + data?.pincode}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div style="display: flex; flex-direction: column; align-items: flex-end;">
+      <div style="font-size: 24px; font-weight: bold; color: black;">{{data?.CompanyName}}</div>
+      <div style="font-size: 16px; color: greenyellow;">{{data?.street+ data?.area+ data?.statename+data?.pincode}}</div>
+    </div> -->
+
+
+  <!-- <div *ngIf="data&&data.unique_id" style="height: 300px;width: 100%; margin-bottom: 100px;">
+    <app-image [CompanyID]='data' [height]="300" [width]="100"></app-image>
+  </div> -->
+  <div class="d-flex justify-content-end mt-3 ">
+    <button class="btn btn-secondary " (click)="routeFunction()"><mat-icon>edit</mat-icon></button>
+  </div>
+  <mat-tab-group style="margin-top: 3%;height: calc(97%-200px);">
+    <mat-tab label="Basic Info" >
+      <div class="row " style="margin-left: 20px; margin-right: 20px;">
+
+        <!-- <span>Name: {{data?.Name}} </span>
+        <span>Company Name: {{data?.CompanyName}}</span>
+        <span><mat-icon style="height: 20px;"> email</mat-icon><span style="padding: 10px;">Email : {{data?.email}}</span></span>
+        <span>Website :<a [href]="data?.Website">WebSite link of {{data?.CompanyName}}</a></span>
+        <span><mat-icon>group</mat-icon>  Employee: {{data?.emp_count}}</span>
+        <span><mat-icon style="height: 20px;"> call</mat-icon><span style="padding: 10px;">Mobile Number : {{data?.phone}}</span></span> -->
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <p *ngIf="data?.company_type != ''">Company Type: {{ data?.company_type }}</p>
+          <p *ngIf="data?.Company_Register_Type != ''">Corporate Registed Number: {{ data?.Company_Register_Type }}</p>
+          <p *ngIf="data?.estd_date != ''">Company Start At: {{ data?.estd_date }}</p>
+          <p *ngIf="data?.is_branch_available">Multi Brach Available at: {{ data?.branch }}</p>
+          <p *ngIf="data?.email != ''"><span><mat-icon style="height: 20px;"> email</mat-icon><span style="padding: 10px;">Email : {{data?.email}}</span></span></p>
+          <p *ngIf="data?.website != ''"><span>Website :<a [href]="data?.Website">WebSite link of {{data?.CompanyName}}</a></span></p>
+          <p *ngIf="data?.emp_count != ''"><span><mat-icon style="height: 20px;">group</mat-icon>   <span style="padding: 10px;">Employee : {{data?.emp_count}}</span></span></p>
+          <p *ngIf="data?.phone != '' "><span><mat-icon style="height: 20px;"> call</mat-icon><span style="padding: 10px;">Mobile Number : {{data?.phone}}</span></span>
+          </p>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          About US
+          <p [innerHTML]="data?.company_description"></p>
+        </div>
+      </div>
+
+
+
+
+    </mat-tab>
+    <!-- <mat-tab label="Product/Services">
+
+    </mat-tab>
+
+    <mat-tab label="Enquires">
+
+    </mat-tab>
+    <mat-tab label="Rating / Comment">
+
+    </mat-tab> -->
+
+    <mat-tab label="New Resume">
+      <div style="margin-left: 10%;">
+        <div style="width: 90%;"  >
+          <div class="row">
+            <div class="col-md-10" >
+              <div class="card border-light mb-3" *ngFor="let job of search_details">
+                <div class="card-body" (click)="my(job)">
+                  <h2 class="card-title">Full Name  : {{ job.name }}</h2>
+                  <h2 class="card-title">Job Title  : {{ job.title }}</h2>
+                  <h3 class="card-subtitle">Job Role   : {{ job.role }}</h3>
+                  <h3 class="card-subtitle">Education   : {{ job.education }}</h3>
+                  <h3 class="card-subtitle">Email ID  : {{ job.email }}</h3>
+                  <h3 class="card-title">Mobile Number  : {{ job.phone }}</h3>
+                  <!-- <ul class="list-unstyled">
+                    Qualifications :
+                    <li *ngFor="let value of job.Education">
+                        {{ value.education }}
+                    </li>
+                  </ul> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>

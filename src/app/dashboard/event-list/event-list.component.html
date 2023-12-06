@@ -1,0 +1,474 @@
+<!-- <style>
+  .main {
+  margin-bottom: 50px;
+}
+
+.bg {
+  font-family: 'Barlow';
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  border: 1px solid transparent
+}
+
+.hoverable {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  height: 150px;
+  width: 150px;
+  /* border: 1px solid rgba(144, 142, 142, 0.5); */
+  border-radius: 50%;
+}
+
+.hoverable .hover-text {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-size: 10px;
+}
+
+.hoverable .background {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.hoverable:hover .hover-text {
+  display: block;
+}
+
+.hoverable:hover .background {
+  display: block;
+}
+
+#fileInput{
+  display: none;
+}
+</style> -->
+
+<div
+    class="modal-dialog modal-dialog-centered modal-xl"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="companyModalLabel">Event ADD</h2>
+      </div>
+
+
+
+      <div class="modal-body">
+        <form [formGroup]="formgrp">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p>Event Name :</p>
+              <!-- [(ngModel)]="title" -->
+              <input type="text" class="form-control" formControlName="eventName" />
+            </div>
+            <div>
+                <span>Short Description</span>
+                <input type="text" class="form-control" formControlName="Description" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p>Start Date :</p>
+                <!-- [(ngModel)]="title" -->
+                <input type="date" class="form-control" formControlName="startdate" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p>End Date :</p>
+                <!-- [(ngModel)]="title" -->
+                <input type="date" class="form-control" formControlName="enddate" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p>Time :</p>
+                <input type="time" class="form-control" formControlName="time1" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p>Duration:</p>
+                <input type="time" class="form-control" formControlName="duration" />
+              </div>
+              <div class="col-12 col-md-6">
+                <p><span><input type="checkbox" class="form-check-input" formControlName="isRegisterMandatory" />
+                </span>Is Registeration Mandatory: </p>
+              </div>
+              <div class="col-12 col-md-6">
+                <p>Maximum of participants:</p>
+                <input
+                  type="number"
+                  min="1"
+                  class="form-control"
+                  formControlName="opening"
+
+                />
+              </div>
+
+            <div class="col-12 col-md-6">
+              <p>Mode:</p>
+              <!-- [(ngModel)]="role" -->
+              <!-- <input type="text" class="form-control" [(ngModel)]="role" /> -->
+              <select
+                class="form-select"
+                formControlName="mode"
+                aria-label="Default select example"
+              >
+              <option value="" selected disabled>Select</option>
+              <option value="ON">ON</option>
+              <option value="OFF">OFF</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <p>Address:</p>
+            <!-- [(ngModel)]="title" -->
+            <input type="text" class="form-control" formControlName="address1" />
+          </div>
+
+<!--
+          <div >
+            <div class="col-md-12">
+              <div class="map-container">
+                <location [Address]="" [Latlog]="mapdata" [Flag]="true"[Draggable]="true" (onClick)="click($event)"></location>
+                <button (click)="hideMap()" class="btn btn-danger">
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="col-12 col-md-6" >
+            <p>Status:</p>
+            <select
+              class="form-select"
+              formControlName="status1"
+              aria-label="Default select example"
+            >
+              <option value="open">Open</option>
+              <option value="Close">Closed</option>
+            </select>
+          </div>
+          <mat-tab-group style="margin-top: 3%;margin-bottom: 5%; height: calc(97% - 200px);">
+
+            <!-- Contacts Tab -->
+<mat-tab label="Contacts">
+  <div class="row tab-content">
+    <div class="col-12 col-md-6">
+      <p>Contact Name:</p>
+      <input type="text" class="form-control" formControlName="contactName" />
+    </div>
+    <div class="col-12 col-md-6">
+      <p>Email:</p>
+      <input type="text" class="form-control" formControlName="email" />
+    </div>
+    <div class="col-12 col-md-6">
+      <p>Phone:</p>
+      <input type="text" class="form-control" formControlName="phoneNumber" />
+    </div>
+    <div class="col-12 col-md-6">
+      <p>Role:</p>
+      <input type="text" class="form-control" formControlName="role" />
+    </div>
+  </div>
+</mat-tab>
+
+            <!-- Images Tab -->
+            <mat-tab label="Images">
+              <div class="row tab-content">
+                <div class="text-center mb-5">
+                  <div fxLayoutAlign="center center">
+                    <label class="hoverable" for="eventLogo">
+                      <img class="eventLogo" [src]="url ? url : ''">
+                      <div class="hover-text">Upload event logo</div>
+                      <div class="background"></div>
+                      <input id="eventLogo" type='file' style="display: none;" (change)="handleFileUpload('eventLogo','eventLogo');onSelectFile($event,true)">
+                    </label>
+                  </div>
+                </div>
+                <button mat-raised-button style="color: white;background-color: grey;text-align: center;margin-bottom: 10px; margin-left: 10px;
+                 width: 100px;" (click)="fileInput.click()">Select File</button>
+                <span>File Size Maximum 2Mb</span>
+                  <!-- UPLOADED FILE-->
+                  <!-- <button style="height: 40px;width: 90px;border-radius: 10%;color:gray ;" button color="gray"
+                    (click)="uploadFiles()" [disabled]="!imageList.length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload
+                  </button> -->
+                  <input style="display: none" #attachments type="file" id="pic" accept=".jpg, .png" (change)="onFileSelection($event)"
+                    #fileInput multiple="true">
+                  <div style="display:flex;flex-direction: row;">
+                    <div style="flex:1 0 auto;width:100px;"
+                      *ngFor="let image of imageList;let index = index">
+                      <span>
+                        <img [src]="image" alt="Image">
+                        <mat-icon (click)="removeSelectedFile(index)">delete</mat-icon>
+                      </span>
+
+                    </div>
+
+                  </div>
+              </div>
+
+
+            </mat-tab>
+
+            <!-- Full Description Tab -->
+            <mat-tab label="Full Description">
+              <div class="row tab-content">
+                <div class="col-md-10">
+                  <p>Full Description:</p>
+                  <textarea class="form-control" formControlName="fullDescription"></textarea>
+                </div>
+                <!-- Add more full description fields as needed -->
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+          <!-- {{ option.user_name }} -->
+          <mat-form-field class="example-full-width">
+            <mat-label>search speaker</mat-label>
+
+            <!-- Input field with form control -->
+            <input type="text"
+                   placeholder="select speaker"
+                   aria-label="speaker"
+                   matInput
+                   [formControl]="myControl"
+                   [matAutocomplete]="auto">
+
+            <!-- Autocomplete options -->
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option (click)="openPopup(option)" *ngFor="let option of filteredOptions | async; trackBy: trackByFn" [value]="option.user_name">
+                {{ option.user_name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary " (click)="addSpeaker()">Add Speaker</button>
+          </div>
+
+          <ag-grid-angular
+          #agGrid
+          style="width: 100%; height: 400px; margin-bottom: 5%;"
+            class="ag-theme-alpine"
+            [rowData]="speakerData"
+            [columnDefs]="speakerColumnDefs"
+            [defaultColDef]="defaultColDef"
+            (firstDataRendered)="onFirstDataRendered($event)"
+            [components]="frameworkComponents"
+            [gridOptions]="gridOptions"
+          ></ag-grid-angular>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary "  (click)="addTeamMember()">Add Team Members</button>
+          </div>
+          <ag-grid-angular
+          style="width: 100%; height: 400px;"
+           #agGridTeam
+
+          class="ag-theme-alpine"
+          [rowData]="teamData"
+            [defaultColDef]="defaultColDef"
+            [columnDefs]="teamColumnDefs"
+            (firstDataRendered)="onFirstDataRendered1($event)"
+          [components]="frameworkComponents"
+          [gridOptions]="gridOptions1"
+        ></ag-grid-angular>
+          <!-- <mat-tab-group>
+            <mat-tab label="Speakers">
+
+            </mat-tab>
+
+
+            <mat-tab label="Team members">
+
+            </mat-tab>
+          </mat-tab-group> -->
+
+
+<ng-template #speaker mode="over" style="height: auto;width: 50%;" >
+
+
+
+  <!-- (ngSubmit)="addSpeaker()" -->
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="speakerForm">
+      <div class="d-flex justify-content-center">
+      <h2> Add Speaker Profile</h2>
+    </div>
+    <label >User's profile photo:</label>
+    <div class="d-flex justify-content-center mb-5">
+
+      <div class="text-center mb-3">
+        <div fxLayoutAlign="center center">
+          <label class="hoverable" for="speakerPhoto">
+            <img [src]="url4 ? url4 : 'assets/image/no profile.png'" alt="User Profile">
+            <div class="hover-text">Upload User Profile</div>
+            <div class="background"></div>
+            <input id="speakerPhoto" type='file' style="display: none;"   (change)="handleFileUpload('speakerPhoto','speakerPhoto');onSelectFile2($event,false)">
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder=" ">
+      <label for="name">Name:</label>
+    </div>
+
+    <!-- User's short description -->
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="description" formControlName="description" placeholder=" ">
+      <label for="description">User's short description</label>
+    </div>
+
+    <!-- Email -->
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder=" ">
+      <label for="email">Email:</label>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-floating mb-3">
+      <input type="tel" class="form-control" id="phoneNumber" formControlName="phoneNo" placeholder=" ">
+      <label for="phoneNumber">Phone Number:</label>
+    </div>
+    <div>
+      <span>User's Full Description</span>
+      <angular-editor  formControlName="fullDescription" [config]="editorConfig"></angular-editor>
+    </div>
+    </form>
+    <!-- End of the new form -->
+
+    <!-- Remaining existing content... -->
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close style="color: rgb(209, 83, 83);" class="btn btn-secondary">Cancel</button>
+    <button type="submit" mat-dialog-close (click)="onSubmit()" class="btn btn-primary">add as Speaker</button>
+  </mat-dialog-actions>
+</ng-template>
+<ng-template #teamMember mode="over" style="height: auto;width: 50%;" >
+
+
+
+  <!-- (ngSubmit)="addSpeaker()" -->
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="teamMemberForm">
+      <div class="d-flex justify-content-center">
+      <h2> Add Team Member Profile</h2>
+    </div>
+    <label >User's profile photo:</label>
+    <div class="d-flex justify-content-center">
+
+      <div class="text-center mb-3">
+        <div fxLayoutAlign="center center">
+          <label class="hoverable" for="TeamMemberPhoto">
+            <img [src]="url3 ? url3 : 'assets/image/no profile.png'" alt="User Profile">
+            <div class="hover-text">Upload User Profile</div>
+            <div class="background"></div>
+            <input id="TeamMemberPhoto" type='file' style="display: none;"  (change)="onSelectFile2($event,true)">
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder=" ">
+      <label for="name">Name:</label>
+    </div>
+
+    <!-- User's short description -->
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="description" formControlName="description" placeholder=" ">
+      <label for="description">User's short description</label>
+    </div>
+
+    <!-- Email -->
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder=" ">
+      <label for="email">Email:</label>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-floating mb-3">
+      <input type="tel" class="form-control" id="phoneNumber" formControlName="phoneNumber" placeholder=" ">
+      <label for="phoneNumber">Phone Number:</label>
+    </div>
+
+    <div>
+      <span>User's Full Description</span>
+      <angular-editor formControlName="fullDescription" [config]="editorConfig"></angular-editor>
+    </div>
+  </form>
+    <!-- End of the new form -->
+
+    <!-- Remaining existing content... -->
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close style="color: rgb(209, 83, 83);" class="btn btn-secondary">Cancel</button>
+    <button type="submit" mat-dialog-close (click)="onSubmitTeamMember()" class="btn btn-primary">Submit</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+
+
+
+
+  <!-- <div style="display:flex;flex-direction: row;" *ngIf="files.length>0">
+    <span>Uploaded Images</span>
+    <div *ngFor="let data of imageFile" style="margin: 2px; display:flex">
+      <span style="display:inline-block;"><img src={{data.path}} alt="Image"></span>
+    </div>
+  </div> -->
+
+
+        </form>
+
+
+      </div>
+      <div class="modal-footer d-flex justify-content-end">
+        <button
+          type="button"
+          class="btn btn-danger"
+          [disabled]="!this.formgrp.valid"
+          *ngIf="!button"
+          style="background-color:var(--main-color)"
+          (click)="
+            logFormValues();
+            endval = 1;
+            startval = 0
+          "
+        >
+          Save
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          *ngIf="button"
+          [disabled]="!this.formgrp.valid"
+          style="background-color:var(--main-color)"
+          (click)="updatevalue(); button = false"
+        >
+          Update
+        </button>
+        <button
+          type="button"
+          (click)="cancelButtonClick()"
+          class="btn btn-danger"
+          style="background-color:var(--main-color); margin-left: 8px;"
+        >
+        Cancel
+        </button>
+      </div>
+    </div>
+  </div>
